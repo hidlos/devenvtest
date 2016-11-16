@@ -1,10 +1,11 @@
 {
   "name": "devenvtest",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Test project for new dev env",
   "main": "index.js",
   "scripts": {
-    "test": "mocha "
+    "test": "mocha ",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,11 @@
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "mocha": "^3.1.2"
+    "mocha": "^3.1.2",
+    "semantic-release": "^4.3.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sensensi/devenvtest.git"
   }
 }
