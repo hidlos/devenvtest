@@ -4,19 +4,19 @@
   "description": "Test project for new dev env",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ",
+    "test": "mocha",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bluebird": "2.3.0",
-    "semantic-release-cli": "2.0.0"
+    "semantic-release-cli": "3.0.0"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
     "mocha": "3.0.0",
-    "semantic-release": "^4.3.5"
+    "semantic-release": "^6.3.2"
   },
   "repository": {
     "type": "git",
