@@ -1,6 +1,6 @@
 {
   "name": "devenvtest",
-  "version":               "0.0.0-development",
+  "version": "0.0.0-development",
   "description": "Test project for new dev env",
   "main": "index.js",
   "scripts": {
