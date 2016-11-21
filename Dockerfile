@@ -1,6 +1,8 @@
 FROM node:boron
 RUN mkdir /app
+RUN pwd
+RUN ls
 COPY . /app
 WORKDIR /app
-RUN npm install
-RUN npm test
+RUN pwd
+RUN ls
