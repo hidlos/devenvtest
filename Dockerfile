@@ -1,4 +1,5 @@
 FROM node:boron
-RUN mkdir /app
-COPY . /app
+RUN mkdir -p /app
 WORKDIR /app
+COPY . /app
+RUN npm install
