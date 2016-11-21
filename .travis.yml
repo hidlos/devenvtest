@@ -27,7 +27,7 @@ after_success:
   - docker build -t arsi/devenvtest:$PACKAGE_VERSION .
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push arsi/devenv:$PACKAGE_VERSION;
+    docker push arsi/devenvtest:$PACKAGE_VERSION;
     fi
 
 branches:
