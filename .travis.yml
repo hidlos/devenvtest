@@ -24,8 +24,7 @@ script:
 after_success:
   - npm run semantic-release
   - docker build -t devenvtest .
-  - docker run devenvtest /bin/sh -c "npm test"
-
+  - docker run devenvtest /bin/sh -c "./node_modules/mocha/bin/mocha"
 
 branches:
   except:
