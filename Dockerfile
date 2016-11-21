@@ -1,8 +1,6 @@
 FROM node:boron
 RUN mkdir /app
-RUN pwd
-RUN ls
+RUN hostname
 COPY . /app
 WORKDIR /app
-RUN pwd
-RUN ls
+RUN hostname
