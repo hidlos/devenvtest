@@ -5,7 +5,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # Install app dependencies
-COPY package.json /usr/src/app/
+COPY package.json /app
 RUN npm install
 
 COPY . /app
