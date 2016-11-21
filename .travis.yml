@@ -23,6 +23,7 @@ script:
 
 after_success:
   - npm run semantic-release
+  - hostname
   - docker build -t devenvtest .
 
 branches:
