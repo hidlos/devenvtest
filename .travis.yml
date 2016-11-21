@@ -23,11 +23,12 @@ script:
 
 after_success:
   - npm run semantic-release
-  - mkdir /temp
-  - cd /temp
-  - npm install devenvtest
   - docker build -t devenvtest .
   - docker run devenvtest /bin/sh -c "./node_modules/mocha/bin/mocha"
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push arsi/devenvtest;
+    fi
 
 branches:
   except:
