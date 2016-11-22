@@ -15,6 +15,16 @@ notifications:
 node_js:
   - '6'
 
+before_install:
+  - getVersion() {
+    PACKAGE_VERSION=`grep -Po '(?<="version". ")[^"]*' package.json`
+    if [ "$PACKAGE_VERSION" == "0.0.0-development" ]; then
+      echo 'latest'
+    else
+      echo $PACKAGE_VERSION
+    fi
+  }
+
 before_script:
   - npm prune
 
@@ -23,7 +33,7 @@ script:
 
 after_success:
   - npm run semantic-release
-  - PACKAGE_VERSION=`grep -Po '(?<="version". ")[^"]*' package.json`
+  - PACKAGE_VERSION=$(getVersion)
   - docker build -t arsi/devenvtest:$PACKAGE_VERSION .
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
