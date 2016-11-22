@@ -4,6 +4,7 @@
   "description": "Test project for new dev env",
   "main": "index.js",
   "scripts": {
+    "commit": "git-cz",
     "test": "mocha",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
@@ -13,6 +14,8 @@
     "bluebird": "2.3.0"
   },
   "devDependencies": {
+    "commitizen": "^2.8.6",
+    "cz-conventional-changelog": "^1.2.0",
     "expect.js": "^0.3.1",
     "mocha": "3.0.0",
     "semantic-release": "^6.3.2"
@@ -20,5 +23,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sensensi/devenvtest.git"
+  },
+  "czConfig": {
+    "path": "node_modules/cz-conventional-changelog"
   }
 }
