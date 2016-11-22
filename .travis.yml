@@ -39,8 +39,8 @@ script:
 after_success:
   - npm run semantic-release
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      buildDockerImage
-      pushDockerImage
+      buildDockerImage;
+      pushDockerImage;
     fi
 
 branches:
