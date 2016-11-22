@@ -20,9 +20,9 @@ before_script:
   - getVersion() {
       PACKAGE_VERSION=`grep -Po '(?<="version". ")[^"]*' package.json`
       if [ "$PACKAGE_VERSION" == "0.0.0-development" ]; then
-        echo 'latest'
+      echo 'latest'
       else
-        echo $PACKAGE_VERSION
+      echo $PACKAGE_VERSION
       fi
     }
 
