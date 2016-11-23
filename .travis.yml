@@ -16,6 +16,7 @@ node_js:
   - '6'
 
 before_script:
+  - DIRECTORIES="app1 module1"
   - cd app1
   - npm prune
   - cd ../module1
@@ -40,6 +41,11 @@ script:
   - cd ../app1
   - npm install
   - npm run test:single
+
+  - for i in "$DIRECTORIES"
+    do
+      echo "$i";
+    done
 
 after_success:
   - npm run semantic-release
