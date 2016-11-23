@@ -40,14 +40,9 @@ before_script:
     }
 
 script:
-  - cd ../app1
-  - npm install
-  - npm run test:single
-
   - for i in $DIRECTORIES;
       do
         cd $ROOTPATH/$i;
-        pwd;
         npm install;
         npm run test:single;
       done
