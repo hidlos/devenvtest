@@ -38,9 +38,6 @@ before_script:
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
       docker push arsi/devenvtest:$(getPackageVersion);
     }
-  - fn() {
-      echo $ROOTPATH;
-  }
 
 script:
   - cd ../app1
