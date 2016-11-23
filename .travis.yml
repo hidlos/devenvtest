@@ -16,6 +16,7 @@ node_js:
   - '6'
 
 before_script:
+  - cd app1
   - npm prune
   - getPackageVersion() {
       PACKAGE_VERSION=`grep -Po '(?<="version". ")[^"]*' package.json`;
