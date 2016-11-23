@@ -18,6 +18,12 @@ node_js:
 before_script:
   - DIRECTORIES="app1 module1"
   - PATH=`pwd`
+  - echo $PATH
+  - pwd
+  - cd app1
+  - npm prune
+  - cd ../module1
+  - npm prune
   - for i in $DIRECTORIES;
       do
         cd $PATH/$i;
