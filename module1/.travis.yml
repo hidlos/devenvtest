@@ -1,0 +1,48 @@
+sudo: required
+
+language: node_js
+
+services:
+  - docker
+
+cache:
+  directories:
+    - node_modules
+
+notifications:
+  email: false
+
+node_js:
+  - '6'
+
+before_script:
+  - npm prune
+  - getPackageVersion() {
+      PACKAGE_VERSION=`grep -Po '(?<="version". ")[^"]*' package.json`;
+      if [ "$PACKAGE_VERSION" == "0.0.0-development" ]; then
+        echo 'latest';
+      else
+        echo $PACKAGE_VERSION;
+      fi
+    }
+  - buildDockerImage() {
+      docker build -t arsi/devenvtest:$(getPackageVersion) .;
+    }
+  - pushDockerImage() {
+      docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+      docker push arsi/devenvtest:$(getPackageVersion);
+    }
+
+script:
+  - npm run test
+
+after_success:
+  - npm run semantic-release
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      buildDockerImage;
+      pushDockerImage;
+    fi
+
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/

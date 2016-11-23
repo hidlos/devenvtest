@@ -1,7 +1,7 @@
 {
-  "name": "devenvtest",
+  "name": "devenvtest/app1",
   "version": "0.0.0-development",
-  "description": "Test project for new dev env",
+  "description": "app1 of test project",
   "main": "index.js",
   "scripts": {
     "commit": "git-cz",
@@ -26,12 +26,12 @@
     "type": "git",
     "url": "https://github.com/sensensi/devenvtest.git"
   },
-  "czConfig": {
-    "path": "node_modules/cz-conventional-changelog"
-  },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run test:single"
+      "pre-push": "npm run test:single"
+    },
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
     }
   }
 }
