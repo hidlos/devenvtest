@@ -16,7 +16,7 @@ node_js:
   - '6'
 
 before_script:
-  - DIRECTORIES="app1"
+  - DIRECTORIES="app1 module1"
   - ROOTPATH=$PWD
   - for i in $DIRECTORIES;
       do
