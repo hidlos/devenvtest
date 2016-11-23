@@ -38,6 +38,7 @@ before_script:
 
 script:
   - cd ../app1
+  - npm install
   - npm run test
 
 after_success:
