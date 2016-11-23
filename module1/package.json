@@ -1,5 +1,5 @@
 {
-  "name": "devenvtest",
+  "name": "module1",
   "version": "0.0.0-development",
   "description": "Test project for new dev env",
   "main": "index.js",

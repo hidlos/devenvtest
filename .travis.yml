@@ -17,7 +17,8 @@ node_js:
 
 before_script:
   - cd app1
-  - nvm install 6
+  - npm prune
+  - cd ../module1
   - npm prune
   - getPackageVersion() {
       PACKAGE_VERSION=`grep -Po '(?<="version". ")[^"]*' package.json`;
@@ -36,6 +37,7 @@ before_script:
     }
 
 script:
+  - cd ../app1
   - npm run test
 
 after_success:
