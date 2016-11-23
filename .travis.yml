@@ -32,11 +32,11 @@ before_script:
       fi
     }
   - buildDockerImage() {
-      docker build -t arsi/devenvtest:$(getPackageVersion) .;
+      docker build -t arsi/devenvtest:$(getPackageVersion)-$1 .;
     }
   - pushDockerImage() {
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push arsi/devenvtest:$(getPackageVersion)$1;
+      docker push arsi/devenvtest:$(getPackageVersion)-$1;
     }
 
 script:
@@ -53,7 +53,7 @@ after_success:
       for i in $DIRECTORIES;
         do
           cd $ROOTPATH/$i;
-          buildDockerImage;
+          buildDockerImage $i;
           pushDockerImage $i;
         done
     fi
