@@ -17,10 +17,12 @@ node_js:
 
 before_script:
   - DIRECTORIES="app1 module1"
-  - cd app1
-  - npm prune
-  - cd ../module1
-  - npm prune
+  - ROOTPATH=$PWD
+  - for i in $DIRECTORIES;
+      do
+        cd $ROOTPATH/$i;
+        npm prune;
+      done
   - getPackageVersion() {
       PACKAGE_VERSION=`grep -Po '(?<="version". ")[^"]*' package.json`;
       if [ "$PACKAGE_VERSION" == "0.0.0-development" ]; then
@@ -38,14 +40,12 @@ before_script:
     }
 
 script:
-  - cd ../app1
-  - npm install
-  - npm run test:single
-
-  - for i in "$DIRECTORIES"
-    do
-      echo "$i";
-    done
+  - for i in $DIRECTORIES;
+      do
+        cd $ROOTPATH/$i;
+        npm install;
+        npm run test:single;
+      done
 
 after_success:
   - npm run semantic-release
