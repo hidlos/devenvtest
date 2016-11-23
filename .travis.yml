@@ -36,7 +36,7 @@ before_script:
     }
   - pushDockerImage() {
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push arsi/devenvtest:$(getPackageVersion);
+      docker push arsi/devenvtest:$(getPackageVersion)-$1;
     }
 
 script:
@@ -50,8 +50,12 @@ script:
 after_success:
   - npm run semantic-release
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      buildDockerImage;
-      pushDockerImage;
+      for i in $DIRECTORIES;
+        do
+          cd $ROOTPATH/$i;
+          buildDockerImage;
+          pushDockerImage $i;
+        done
     fi
 
 branches:
