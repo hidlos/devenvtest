@@ -17,6 +17,7 @@ node_js:
 
 before_script:
   - DIRECTORIES="app1 module1"
+  - env
   - PATH=`pwd`
   - echo $PATH
   - pwd
