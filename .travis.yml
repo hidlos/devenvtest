@@ -17,9 +17,10 @@ node_js:
 
 before_script:
   - DIRECTORIES="app1 module1"
+  - PATH=$PWD
   - for i in $DIRECTORIES;
       do
-        cd $PWD/$i;
+        cd $PATH/$i;
         npm prune;
       done
   - getPackageVersion() {
