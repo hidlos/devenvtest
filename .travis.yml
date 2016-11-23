@@ -36,7 +36,7 @@ before_script:
     }
   - pushDockerImage() {
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push arsi/devenvtest:$(getPackageVersion)-$1;
+      docker push arsi/devenvtest:$(getPackageVersion)$1;
     }
 
 script:
