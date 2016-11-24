@@ -31,12 +31,12 @@ before_script:
         echo $PACKAGE_VERSION;
       fi
     }
-  - buildDockerImages() {
-      docker build -t arsi/devenvtest:$(getPackageVersion) .;
+  - buildDockerImage() {
+      docker build -t arsi/devenvtest:$1-$(getPackageVersion) .;
     }
   - pushDockerImages() {
       docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push arsi/devenvtest:$(getPackageVersion);
+      docker push arsi/devenvtest:$1-$(getPackageVersion);
     }
 
 script:
@@ -48,10 +48,14 @@ script:
       done
 
 after_success:
-  - npm run semantic-release
-  - if [ "$TRAVIS_BRANCH" == "staging" ]; then
-      buildDockerImages;
-      pushDockerImages;
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      for i in $DIRECTORIES;
+        do
+          cd $ROOTPATH/$i;
+          npm run semantic-release;
+          buildDockerImage $i;
+          pushDockerImage $i;
+        done
     fi
 
 branches:
