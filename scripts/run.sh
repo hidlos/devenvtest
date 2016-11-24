@@ -2,5 +2,5 @@
 
 set -ev
 
-/scripts/runTests.sh
-/scripts/buildImages.sh
+./scripts/runTests.sh
+./scripts/buildImages.sh
