@@ -15,42 +15,7 @@ notifications:
 node_js:
   - '6'
 
-before_script:
-  - DIRECTORIES=./findDockerfiles.sh
-  - ROOTPATH=$PWD
-  - for i in $DIRECTORIES;
-      do
-        cd $ROOTPATH/$i;
-        npm prune;
-      done
-  - getPackageVersion() {
-      PACKAGE_VERSION=`grep -Po '(?<="version". ")[^"]*' package.json`;
-      if [ "$PACKAGE_VERSION" == "0.0.0-development" ]; then
-        echo 'latest';
-      else
-        echo $PACKAGE_VERSION;
-      fi
-    }
-  - buildDockerImage() {
-      docker build -t arsi/devenvtest:$1-$(getPackageVersion) .;
-    }
-  - pushDockerImages() {
-      docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push arsi/devenvtest:$1-$(getPackageVersion);
-    }
-
-script: ./scripts/buildDockerImages.sh
-
-after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      for i in $DIRECTORIES;
-        do
-          cd $ROOTPATH/$i;
-          npm run semantic-release;
-          buildDockerImage $i;
-          pushDockerImage $i;
-        done
-    fi
+script: ./scripts/run.sh
 
 branches:
   except:

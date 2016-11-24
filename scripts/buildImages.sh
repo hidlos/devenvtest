@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -ev
+
 # TRAVIS_COMMIT_RANGE="e5bdd1a..3b47720"
 COMMITTED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE`
 
