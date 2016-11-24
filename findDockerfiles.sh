@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-TRAVIS_COMMIT_RANGE="e5bdd1a..410f772"
+TRAVIS_COMMIT_RANGE="e5bdd1a..3b47720"
 COMMITTED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE`
-echo $COMMITTED_FILES
+#echo $COMMITTED_FILES
 
 DOCKER_IMAGE_DIRS=`find . -name Dockerfile -printf '%h\n'`
 
 for dockerdir in $DOCKER_IMAGE_DIRS; do
-    if [[ $COMMITTED_FILES == *"$dockerdir"* ]]; then
+    currentdir=`echo $dockerdir | cut -d '/' -f 2`
+    if [[ $COMMITTED_FILES == *"$currentdir"* ]]; then
         echo "Image $dockerdir needs to be built"
     fi
 done
