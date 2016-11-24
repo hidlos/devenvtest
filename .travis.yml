@@ -16,7 +16,7 @@ node_js:
   - '6'
 
 before_script:
-  - DIRECTORIES="apps/app1 domain/module1"
+  - DIRECTORIES=./findDockerfiles.sh
   - ROOTPATH=$PWD
   - for i in $DIRECTORIES;
       do
@@ -39,13 +39,7 @@ before_script:
       docker push arsi/devenvtest:$1-$(getPackageVersion);
     }
 
-script:
-  - for i in $DIRECTORIES;
-      do
-        cd $ROOTPATH/$i;
-        npm install;
-        npm run test:single;
-      done
+script: ./scripts/buildDockerImages.sh
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
