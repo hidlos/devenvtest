@@ -48,7 +48,7 @@ script:
       done
 
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "staging" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
       for i in $DIRECTORIES;
         do
           cd $ROOTPATH/$i;
