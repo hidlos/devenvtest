@@ -13,5 +13,7 @@ describe('App', function () {
         it('should have start function', function () {
             expect(app.start).to.be.function;
         });
+
+	
     });
 });
