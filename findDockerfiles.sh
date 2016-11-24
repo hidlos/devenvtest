@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
-dirs=`find . -name Dockerfile -printf '%h\n'`
+TRAVIS_COMMIT_RANGE="e5bdd1a..410f772"
+COMMITTED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE`
+#echo $COMMITTED_FILES
 
-for dir in $dirs; do
-    image_name=$dir
-    echo "Image $image_name needs to be built from $dir"
-    # docker build -t ibillboard/$image_name /vagrant/images/applications/$dir
+DOCKER_IMAGE_DIRS=`find . -name Dockerfile -printf '%h\n'`
+
+for dockerdir in $DOCKER_IMAGE_DIRS; do
+#    if [[ "$dockerdir" == "$COMMITTED_FILES" ]]; then
+    if [[ "ne dave" == "dave" ]]; then
+        echo "Image $dockerdir needs to be built"
+    fi
 done
