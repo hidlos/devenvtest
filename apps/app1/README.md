@@ -1,2 +1,2 @@
 # devenvtest app1
-This is a test application in a project where we try to find a better build-test-deploy process
+This is a test application in a project where we try to find a better build-test-deploy process for ibb apps.
