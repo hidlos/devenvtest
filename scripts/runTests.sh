@@ -1,20 +1,13 @@
 #!/usr/bin/env bash
 
-set -ev
+#set -ev
+AFFECTED_DIRS=$1
+ROOTPATH=$2
 
-# TRAVIS_COMMIT_RANGE="e5bdd1a..3b47720"
-COMMITTED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE`
-
-NODE_MODULE_DIRS=`find . -name package.json -printf '%h\n'`
-
-ROOTPATH=$PWD
-
-for moduledir in $NODE_MODULE_DIRS; do
-    currentdir=`echo $moduledir | cut -d '/' -f 2-`
-    if [[ $COMMITTED_FILES == *"$currentdir"* ]]; then
-        cd $ROOTPATH/$i;
+for DIR in $AFFECTED_DIRS
+do
+	cd $ROOTPATH/$DIR;
         npm prune;
         npm install;
         npm run test:single;
-    fi
 done

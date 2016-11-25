@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-set -ev
+#set -ev
+TRAVIS_COMMIT_RANGE="e17e329..4ffc20f"
 
-./scripts/runTests.sh
-./scripts/buildImages.sh
+ROOTPATH=$PWD
+COMMITTED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE`
+DIRS_FOR_BUILD=`bash scripts/getDirsForBuild.sh "$COMMITTED_FILES"`
+AFFECTED_NODE_MODULE_DIRS=`bash scripts/getAffectedNodeModuleDirs.sh "$COMMITTED_FILES"`
+
+echo "`bash scripts/runTests.sh "$AFFECTED_NODE_MODULE_DIRS" "$ROOTPATH"`"
+echo "`bash scripts/buildImages.sh "$DIRS_FOR_BUILD" "$ROOTPATH"`"
