@@ -8,5 +8,5 @@ COMMITTED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE`
 DIRS_FOR_BUILD=`bash scripts/getDirsForBuild.sh "$COMMITTED_FILES"`
 AFFECTED_NODE_MODULE_DIRS=`bash scripts/getAffectedNodeModuleDirs.sh "$COMMITTED_FILES"`
 
-echo "`bash scripts/runTests.sh "$AFFECTED_NODE_MODULE_DIRS" "$ROOTPATH"`"
-echo "`bash scripts/buildImages.sh "$DIRS_FOR_BUILD" "$ROOTPATH"`"
+bash scripts/runTests.sh "$AFFECTED_NODE_MODULE_DIRS" "$ROOTPATH"
+bash scripts/buildImages.sh "$DIRS_FOR_BUILD" "$ROOTPATH"
