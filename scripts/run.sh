@@ -9,6 +9,9 @@ COMMITTED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE`
 NODE_MODULE_DIRS=`bash scripts/getAffectedNodeModuleDirs.sh "$COMMITTED_FILES"`
 bash scripts/runTests.sh "$NODE_MODULE_DIRS" "$ROOT_PATH"
 
+echo "promenne prostredi start -----------------"
+env
+echo "promenne procredi konec ------------------"
 if [ -f /here ]; then
     echo "JE TAM";
 else
