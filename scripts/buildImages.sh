@@ -14,7 +14,7 @@ do
 	echo "Building and publishing Docker image $DIR"
 	IMAGE_VERSION=`getNodeModuleVersion`
 	echo "Image will be tagged with $IMAGE_VERSION"
-	docker build -t arsi/devenvtest:$IMAGE_VERSION .
+	sudo docker build -t arsi/devenvtest:$IMAGE_VERSION .
 	echo "after build"
 	docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 	echo "after login"
