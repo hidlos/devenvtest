@@ -15,9 +15,6 @@ do
 	IMAGE_VERSION=`getNodeModuleVersion`
 	echo "Image will be tagged with $IMAGE_VERSION"
 	sudo docker build -t arsi/devenvtest:$IMAGE_VERSION .
-	echo "after build"
-	docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-	echo "after login"
-    docker push arsi/devenvtest:$IMAGE_VERSION
-    echo "after push"
+	sudo docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    sudo docker push arsi/devenvtest:$IMAGE_VERSION
 done
