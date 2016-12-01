@@ -15,6 +15,6 @@ def runTests() {
     def commitedFiles = sh (script: "git diff --name-only $TRAVIS_COMMIT_RANGE", returnStdout: true)
     echo(rootPath)
 
-    nodeModuleDirectories = sh (script: "bash scripts/getAffectedNodeModuleDirs.sh '$COMMITTED_FILES'", returnStdout: true)
+    nodeModuleDirectories = sh (script: "bash scripts/getAffectedNodeModuleDirs.sh '$commitedFiles'", returnStdout: true)
     echo(nodeModuleDirectories)
 }
