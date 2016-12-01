@@ -33,10 +33,5 @@ def getAffectedNodeModuleDirs(commitedFiles) {
 }
 
 def getAffectedDirs(nodeModules, commitedFiles) {
-    for dir in $DIRS; do
-        currentDir = sh (script: "echo $DIR | cut -d '/' -f 2-", returnStdout: true)
-        if [[ $commitedFiles == *"$currentDir"* ]]; then
-            echo $currentDir
-        fi
-    done
+    sh (script: "scripts/getAffectedDirs.sh $nodeModules $commitedFiles", returnStdout: true)
 }
