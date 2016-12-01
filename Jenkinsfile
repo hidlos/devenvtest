@@ -46,5 +46,6 @@ def getModulesDirs() {
 
 def runTestForDirectory(dir, rootPath) {
     echo(sh (script: "cd $rootPath/$dir && ls", returnStdout: true))
+    echo(sh (script: "cd $rootPath/$dir && npm prune && npm install && npm run test:single", returnStdout: true))
     sh (script: "echo \"`bash scripts/runTests.sh apps/app1 $rootPath`\"", returnStdout: true)
 }
