@@ -9,5 +9,5 @@ COMMITTED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE`
 NODE_MODULE_DIRS=`bash scripts/getAffectedNodeModuleDirs.sh "$COMMITTED_FILES"`
 bash scripts/runTests.sh "$NODE_MODULE_DIRS" "$ROOT_PATH"
 
-DOCKER_DIRECTORIES=`bash scripts/getDirsForBuild.sh "$COMMITTED_FILES"`
-bash scripts/buildImages.sh "$DOCKER_DIRECTORIES" "$ROOT_PATH"
+#DOCKER_DIRECTORIES=`bash scripts/getDirsForBuild.sh "$COMMITTED_FILES"`
+#bash scripts/buildImages.sh "$DOCKER_DIRECTORIES" "$ROOT_PATH"
