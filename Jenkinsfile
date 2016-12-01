@@ -10,7 +10,7 @@ def runTests() {
     def rootPath = pwd()
     def commitedFiles = getCommitedFiles()
     echo('commitedFiles')
-    echo(commitedFiles[0])
+    echo(commitedFiles)
     def affectedDirs = getAffectedDirs(commitedFiles)
     echo('affectedDirs')
     echo(affectedDirs)
@@ -21,7 +21,7 @@ def runTests() {
 def getCommitedFiles() {
     def commitRange = getCommitRange()
     def commitedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true)
-    return commitedFilesFromBash.toString().split('\n')
+    return commitedFilesFromBash.toString()
 }
 
 def getCommitRange() {
@@ -35,7 +35,9 @@ def getAffectedDirs(commitedFiles) {
 
     for (dir in moduleDirs) {
         currentDir = dir.substring(2,dir.length())
-        echo(currentDir)
+        if (commitedFiles.contains(currentDir)) {
+            echo(currentDir)
+        }
     }
 
 
