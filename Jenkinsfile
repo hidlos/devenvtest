@@ -9,12 +9,15 @@ stage('run tests') {
 
 def runTests() {
     def rootPath = pwd()
-    def TRAVIS_COMMIT_RANGE = "e17e329..4ffc20f"
-    def commitedFiles = sh (script: "git diff --name-only $TRAVIS_COMMIT_RANGE", returnStdout: true)
-
-    nodeModuleDirectories = sh (script: "bash scripts/getAffectedNodeModuleDirs.sh '$commitedFiles'", returnStdout: true)
+    def commitRange = "e17e329..4ffc20f"
+    nodeModuleDirectories = getAffectedNodeModuleDirs(commitRange)
     echo(nodeModuleDirectories)
 
     echo(sh (script: "bash scripts/runTests.sh '$nodeModuleDirectories' '$rootPath'", returnStdout: true))
 
+}
+
+def getAffectedNodeModuleDirs(commitRange) {
+    def commitedFiles = sh (script: "git diff --name-only $commitRange", returnStdout: true)
+    sh (script: "bash scripts/getAffectedNodeModuleDirs.sh '$commitedFiles'", returnStdout: true)
 }
