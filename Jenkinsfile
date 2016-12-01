@@ -45,6 +45,6 @@ def getModulesDirs() {
 }
 
 def runTestForDirectory(dir, rootPath) {
-    sh "cd $rootPath/$dir"
+    sh (script: "cd $rootPath/$dir")
     sh 'ls'
 }
