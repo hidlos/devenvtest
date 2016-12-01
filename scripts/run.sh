@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #set -ev
-#TRAVIS_COMMIT_RANGE="e17e329..4ffc20f"
+TRAVIS_COMMIT_RANGE="e17e329..4ffc20f"
 
 ROOT_PATH=$PWD
 COMMITTED_FILES=`git diff --name-only $TRAVIS_COMMIT_RANGE`
