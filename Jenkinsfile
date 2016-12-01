@@ -11,7 +11,7 @@ def runTests() {
     def commitedFiles = getCommitedFiles()
     nodeModuleDirectories = getAffectedNodeModuleDirs(commitedFiles)
     echo(nodeModuleDirectories)
-    echo(sh (script: "bash scripts/runTests.sh '$nodeModuleDirectories' '$rootPath'", returnStdout: true))
+    //echo(sh (script: "bash scripts/runTests.sh '$nodeModuleDirectories' '$rootPath'", returnStdout: true))
 }
 
 def getCommitedFiles() {
