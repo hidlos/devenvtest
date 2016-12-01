@@ -33,7 +33,7 @@ def getAffectedDirs(commitedFiles) {
     echo('moduleDirs')
     echo(moduleDirs[0])
 
-    moduleDirs.each { dir ->
+    for (dir in moduleDirs) {
         echo(dir)
     }
 
