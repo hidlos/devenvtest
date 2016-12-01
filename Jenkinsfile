@@ -34,7 +34,8 @@ def getAffectedDirs(commitedFiles) {
     echo(moduleDirs[0])
 
     for (dir in moduleDirs) {
-        echo(dir)
+        currentDir = dir.substring(2,dir.length())
+        echo(currentDir)
     }
 
 
