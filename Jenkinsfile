@@ -16,7 +16,8 @@ def runTests() {
 
 def getCommitedFiles() {
     def commitRange = getCommitRange()
-    def commitedFiles = sh (script: "git diff --name-only $commitRange", returnStdout: true)
+    def commitedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true)
+    def commitedFiles = commitedFilesFromBash.toString().split('\n')
     getAffectedNodeModuleDirs(commitedFiles)
 }
 
@@ -25,11 +26,15 @@ def getCommitRange() {
 }
 
 def getAffectedNodeModuleDirs(commitedFiles) {
-    def nodeModulesFromBash = sh (script: "find . -name package.json -printf '%h '", returnStdout: true)
-    def nodeModules = nodeModulesFromBash.toString().split(' ')
-    echo(nodeModules[0])
+    def nodeModules = getNodeModules()
+    echo(nodeModules[2])
     echo(commitedFiles)
     getAffectedDirs(nodeModules, commitedFiles)
+}
+
+def getNodeModules() {
+    def nodeModulesFromBash = sh (script: "find . -name package.json -printf '%h '", returnStdout: true)
+    return nodeModulesFromBash.toString().split(' ')
 }
 
 def getAffectedDirs(nodeModules, commitedFiles) {
