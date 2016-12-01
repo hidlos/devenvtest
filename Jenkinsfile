@@ -26,6 +26,7 @@ def getCommitRange() {
 
 def getAffectedNodeModuleDirs(commitedFiles) {
     def nodeModules = sh 'getNodeModules.sh'
+    echo('nodeModules[0]')
     echo(nodeModules[0])
     echo(commitedFiles)
     getAffectedDirs(nodeModules, commitedFiles)
