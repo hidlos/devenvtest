@@ -13,7 +13,7 @@ def runTests() {
     echo(commitedFiles)
     def affectedDirs = getAffectedDirs(commitedFiles)
     echo('affectedDirs')
-    echo(affectedDirs)
+    echo(affectedDirs[0])
 
     //echo(sh (script: "bash scripts/runTests.sh '$nodeModuleDirectories' '$rootPath'", returnStdout: true))
 }
@@ -32,17 +32,15 @@ def getAffectedDirs(commitedFiles) {
     def moduleDirs = getModulesDirs()
     echo('moduleDirs')
     echo(moduleDirs[0])
+    def affectedDirs = []
 
     for (dir in moduleDirs) {
         currentDir = dir.substring(2,dir.length())
         if (commitedFiles.contains(currentDir)) {
-            echo(currentDir)
+            affectedDirs.push(currentDir)
         }
     }
-
-
-    //sh (script: "bash scripts/getAffectedDirs.sh $nodeModules $commitedFiles", returnStdout: true)
-    return "some"
+    return affectedDirs
 }
 
 def getModulesDirs() {
