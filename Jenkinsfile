@@ -1,6 +1,6 @@
 #!groovy
 
-stage('SCM checkout') {
+stage('tralala run tests') {
     node ('nodejs') {
         sh 'ls'
         sh 'pwd'
