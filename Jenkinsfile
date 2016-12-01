@@ -8,14 +8,11 @@ stage('run tests') {
 
 def runTests() {
     def rootPath = pwd()
-    def commitedFiles = getCommitedFiles()
-    echo('commitedFiles')
-    echo(commitedFiles)
-    def affectedDirs = getAffectedDirs(commitedFiles)
-    echo('affectedDirs')
-    echo(affectedDirs[0])
+    def affectedDirs = getAffectedDirs()
 
-    //echo(sh (script: "bash scripts/runTests.sh '$nodeModuleDirectories' '$rootPath'", returnStdout: true))
+    for (dir in affectedDirs) {
+        runTestForDirectory(dir, rootPath)
+    }
 }
 
 def getCommitedFiles() {
@@ -28,10 +25,9 @@ def getCommitRange() {
     return "e17e329..4ffc20f"
 }
 
-def getAffectedDirs(commitedFiles) {
+def getAffectedDirs() {
+    def commitedFiles = getCommitedFiles()
     def moduleDirs = getModulesDirs()
-    echo('moduleDirs')
-    echo(moduleDirs[0])
     def affectedDirs = []
 
     for (dir in moduleDirs) {
@@ -46,4 +42,9 @@ def getAffectedDirs(commitedFiles) {
 def getModulesDirs() {
     def moduleDirsFromBash = sh (script: "find . -name package.json -printf '%h '", returnStdout: true)
     return moduleDirsFromBash.toString().split(' ')
+}
+
+def runTestForDirectory(dir, rootPath) {
+    sh "cd $rootPath/$dir"
+    echo(pwd())
 }
