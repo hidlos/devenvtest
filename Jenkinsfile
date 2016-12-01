@@ -1,9 +1,14 @@
 #!groovy
 
-stage('tralala run tests') {
+stage('run tests') {
     node ('nodejs') {
-        sh 'ls'
-        echo(pwd())
-        sleep 10
+         runTests()
     }
+}
+
+
+def runTests() {
+    echo(pwd())
+    def rootPath = pwd()
+    echo(rootPath)
 }
