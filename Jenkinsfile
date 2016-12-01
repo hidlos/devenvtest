@@ -31,7 +31,7 @@ def getCommitRange() {
 
 
 def getAffectedDirs(commitedFiles) {
-    def modulesDirs = getModulesDirs()
+    def moduleDirs = getModulesDirs()
     echo('moduleDirs')
     echo(moduleDirs[0])
     //sh (script: "bash scripts/getAffectedDirs.sh $nodeModules $commitedFiles", returnStdout: true)
