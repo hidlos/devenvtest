@@ -1,7 +1,7 @@
 #!groovy
 
-node ('nodejs6') {
-    stage('pulling from git') {
+stage('SCM checkout') {
+    node ('nodejs') {
         sh 'ls'
         sh 'pwd'
     }
