@@ -38,6 +38,6 @@ def getNodeModules() {
 }
 
 def getAffectedDirs(nodeModules, commitedFiles) {
-    #sh (script: "scripts/getAffectedDirs.sh $nodeModules $commitedFiles", returnStdout: true)
+    //sh (script: "scripts/getAffectedDirs.sh $nodeModules $commitedFiles", returnStdout: true)
     return "some"
 }
