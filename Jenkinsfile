@@ -2,22 +2,41 @@
 
 stage('run tests') {
     node ('nodejs') {
-         runTests()
+
+        runTests(commitRange)
     }
 }
 
-
 def runTests() {
     def rootPath = pwd()
-    def commitRange = "e17e329..4ffc20f"
-    nodeModuleDirectories = getAffectedNodeModuleDirs(commitRange)
+    def commitedFiles = getCommitedFiles()
+    nodeModuleDirectories = getAffectedNodeModuleDirs(commitedFiles)
     echo(nodeModuleDirectories)
 
     echo(sh (script: "bash scripts/runTests.sh '$nodeModuleDirectories' '$rootPath'", returnStdout: true))
 
 }
 
-def getAffectedNodeModuleDirs(commitRange) {
+def getCommitedFiles() {
+    def commitRange = getCommitRange()
     def commitedFiles = sh (script: "git diff --name-only $commitRange", returnStdout: true)
-    sh (script: "bash scripts/getAffectedNodeModuleDirs.sh '$commitedFiles'", returnStdout: true)
+    getAffectedNodeModuleDirs(commitedFiles)
+}
+
+def getCommitRange() {
+    return "e17e329..4ffc20f"
+}
+
+def getAffectedNodeModuleDirs(commitedFiles) {
+    def nodeModules = sh (script: "find . -name package.json -printf '%h\n'", returnStdout: true)
+    getAffectedDirs(nodeModules, commitedFiles)
+}
+
+def getAffectedDirs(nodeModules, commitedFiles) {
+    for dir in $DIRS; do
+        currentDir = sh (script: "echo $DIR | cut -d '/' -f 2-", returnStdout: true)
+        if [[ $commitedFiles == *"$currentDir"* ]]; then
+            echo $currentDir
+        fi
+    done
 }
