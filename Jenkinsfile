@@ -2,7 +2,7 @@
 
 stage('run tests') {
     node ('nodejs') {
-        runTests(commitRange)
+        runTests()
     }
 }
 
