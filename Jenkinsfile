@@ -9,6 +9,6 @@ stage('run tests') {
 
 def runTests() {
     echo(pwd())
-    def rootPath = pwd()
+    def rootPath = sh 'git diff --name-only $TRAVIS_COMMIT_RANGE'
     echo(rootPath)
 }
