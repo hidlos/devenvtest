@@ -3,6 +3,7 @@
 stage('tralala run tests') {
     node ('nodejs') {
         sh 'ls'
-        sh 'pwd'
+        pwd()
+        sleep 10000
     }
 }
