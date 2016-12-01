@@ -45,6 +45,6 @@ def getModulesDirs() {
 }
 
 def runTestForDirectory(dir, rootPath) {
-    sh (script: "echo `cd $rootPath/$dir && ls`", returnStdout: true)
+    sh (script: "cd $rootPath/$dir && ls | cat", returnStdout: true)
     sh (script: "echo \"`bash scripts/runTests.sh apps/app1 $rootPath`\"", returnStdout: true)
 }
