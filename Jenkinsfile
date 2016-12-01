@@ -18,7 +18,6 @@ def getCommitedFiles() {
     def commitRange = getCommitRange()
     def commitedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true)
     def commitedFiles = commitedFilesFromBash.toString().split('\n')
-    echo(commitedFiles[0])
     getAffectedNodeModuleDirs(commitedFiles)
 }
 
@@ -39,5 +38,6 @@ def getNodeModules() {
 }
 
 def getAffectedDirs(nodeModules, commitedFiles) {
-    sh (script: "scripts/getAffectedDirs.sh $nodeModules $commitedFiles", returnStdout: true)
+    #sh (script: "scripts/getAffectedDirs.sh $nodeModules $commitedFiles", returnStdout: true)
+    return "some"
 }
