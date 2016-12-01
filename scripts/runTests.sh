@@ -9,4 +9,5 @@ do
         npm prune
         npm install
         npm run test:single
+        echo "jsem tu"
 done
