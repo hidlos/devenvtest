@@ -9,9 +9,6 @@ stage('run tests') {
 
 def runTests() {
     echo(pwd())
-    def rootPath = sh 'git diff --name-only $TRAVIS_COMMIT_RANGE'
-    def rootPathStatus = sh returnStatus: true, script: 'git diff --name-only $TRAVIS_COMMIT_RANGE'
-    sh 'env'
+    def rootPath = sh (script: 'git diff --name-only $TRAVIS_COMMIT_RANGE', returnStdout: true)
     echo(rootPath)
-    echo(rootStatus)
 }
