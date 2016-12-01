@@ -28,12 +28,16 @@ def getCommitRange() {
     return "e17e329..4ffc20f"
 }
 
-
-
 def getAffectedDirs(commitedFiles) {
     def moduleDirs = getModulesDirs()
     echo('moduleDirs')
     echo(moduleDirs[0])
+
+    moduleDirs.each { dir ->
+        echo(dir)
+    }
+
+
     //sh (script: "bash scripts/getAffectedDirs.sh $nodeModules $commitedFiles", returnStdout: true)
     return "some"
 }
