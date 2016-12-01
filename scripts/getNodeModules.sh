@@ -1,1 +1,1 @@
-find . -name package.json -printf '%h\n'
+($(find . -name package.json -printf '%h\n'))

@@ -25,7 +25,7 @@ def getCommitRange() {
 }
 
 def getAffectedNodeModuleDirs(commitedFiles) {
-    def nodeModules = sh (script: "($(find . -name package.json -printf '%h\n'))", returnStdout: true)
+    def nodeModules = sh (script: "getNodeModules.sh", returnStdout: true)
     echo('nodeModules')
     echo(commitedFiles)
     getAffectedDirs(nodeModules, commitedFiles)
