@@ -6,6 +6,12 @@ stage('run tests') {
     }
 }
 
+stage('build images') {
+    node ('nodejs') {
+        echo('zde')
+    }
+}
+
 def runTests() {
     def rootPath = pwd()
     def affectedDirs = getAffectedDirs()
