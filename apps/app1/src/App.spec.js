@@ -11,7 +11,7 @@ describe('App', function () {
 
     describe('application', function () {
         it('should have start function', function () {
-            expect(app.start).not.to.be.function;
+            expect(app.start).to.be.true;
         });
 
 	
