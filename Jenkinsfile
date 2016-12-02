@@ -1,5 +1,11 @@
 #!groovy
 
+stage('checkout') {
+    node ('nodejs') {
+            sh (script: "rm -rf * && cp /home/jenkins/jobs/pipe/workspace@script .", returnStdout: true)
+    }
+}
+
 stage('run tests') {
     node ('nodejs') {
         runTests()
@@ -11,6 +17,8 @@ stage('build images') {
         echo('zde')
     }
 }
+
+
 
 def runTests() {
     def rootPath = pwd()
