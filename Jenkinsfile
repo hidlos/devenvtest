@@ -15,6 +15,7 @@ stage('checkout') {
             echo(gitShow)
             for (set in currentBuild.changeSets) {
                 echo(set.toString())
+
             }
     }
 }
