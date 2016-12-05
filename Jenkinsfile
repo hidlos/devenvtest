@@ -7,20 +7,25 @@ stage('checkout') {
             echo(gitCommit)
             def gitShow = sh(script: "git show -p origin/master", returnStdout: true)
             echo(gitShow)
-            echo "currentBuild.buildVariables()"
             echo "zacatek"
-            sh "env"
-            echo "konec"
             for (set in currentBuild.changeSets) {
                 echo(set.toString())
                 echo " \n"
+            }
+            echo "konec"
+            def changeSetIterator = currentBuild.changeSets.iterator()
+            while (changeSetIterator.hasNext()) {
+              def gitChangeSet = changeSetIterator.next()
+              for (pat in gitChangeSet.getPaths()) {
+                echo(path.getPath())
+              }
             }
     }
 }
 
 stage('run tests') {
     node ('nodejs') {
-        runTests()
+        // runTests()
     }
 }
 
@@ -28,7 +33,7 @@ stage('build images') {
     node ('nodejs') {
         def directoriesForBuild = getDirectoriesForBuild(getCommittedFiles())
         def rootPath = pwd()
-        buildImages(directoriesForBuild, rootPath)
+        // buildImages(directoriesForBuild, rootPath)
     }
 }
 
