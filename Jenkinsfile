@@ -3,8 +3,8 @@
 stage('checkout') {
     node ('nodejs') {
         sh (script: "rm -rf /home/jenkins/workspace/pipe && cp -r -a /home/jenkins/jobs/pipe/workspace@script /home/jenkins/workspace/pipe", returnStdout: true)
-        def branch = env.BRANCH_NAME
-        sh "My branch name: ${branch}"
+        def envVarsMap = build.parent.builds[0].properties.get("envVars")
+        echo(envVarsMap)
     }
 }
 
