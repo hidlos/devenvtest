@@ -11,6 +11,8 @@ stage('checkout') {
         sh (script: "rm -rf /home/jenkins/workspace/pipe && cp -r -a /home/jenkins/jobs/pipe/workspace@script /home/jenkins/workspace/pipe", returnStdout: true)
             def gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
             echo(gitCommit)
+            def gitShow = sh(script: "git show -p origin/master", returnStdout: true)
+            echo(gitShow)
     }
 }
 
