@@ -75,6 +75,6 @@ def buildImages(dockerImageDirectories, rootPath)
 {
     for (dir in dockerImageDirectories)
     {
-        sh (script: "scripts/buildImage.sh '$dir' '$rootPath'", returnStdout: true)
+        sh (script: "sudo ./scripts/buildImage.sh '$dir' '$rootPath'", returnStdout: true)
     }
 }
