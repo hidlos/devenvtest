@@ -5,7 +5,7 @@ stage('checkout') {
             sh 'pwd'
             sh 'ls'
             sh (script: "cd /home/jenkins/workspace/pipe/ && rm -rf * && cp -r -a /home/jenkins/jobs/pipe/workspace@script/* /home/jenkins/workspace/pipe/ && ls && pwd", returnStdout: true)
-            sh (script: "cd /home/jenkins/workspace/ && rm -rf pipe && ln -s /home/jenkins_home/workspaces/pipe pipe", returnStdout: true)
+            sh (script: "cd /home/jenkins/workspace/ && rm -rf pipe && ln -s /home/vagrant/jenkins_home/workspaces/pipe pipe", returnStdout: true)
     }
 }
 
