@@ -3,7 +3,6 @@
 stage('env') {
     node {
         sh 'env'
-
     }
 }
 
