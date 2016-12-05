@@ -7,8 +7,13 @@ stage('checkout') {
             echo(gitCommit)
             def gitShow = sh(script: "git show -p origin/master", returnStdout: true)
             echo(gitShow)
+            currentBuild.buildVariables()
+            echo "zacatek"
+            sh "env"
+            echo "konec"
             for (set in currentBuild.changeSets) {
                 echo(set.toString())
+                echo " \n"
             }
     }
 }
