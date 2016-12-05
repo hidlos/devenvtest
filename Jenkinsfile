@@ -9,8 +9,10 @@ stage('checkout') {
             echo(gitShow)
             echo "zacatek"
             for (set in currentBuild.changeSets) {
-                echo(set.toString())
-                echo " \n"
+                def items = set.getItems()
+                for (item in items) {
+                    echo(item)
+                }
             }
             echo "konec"
             def changeSetIterator = currentBuild.changeSets.iterator()
