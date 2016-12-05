@@ -1,18 +1,14 @@
 #!groovy
 
+stage('env') {
+    node {
+        sh 'env'
+    }
+}
+
 stage('checkout') {
     node ('nodejs') {
         sh (script: "rm -rf /home/jenkins/workspace/pipe && cp -r -a /home/jenkins/jobs/pipe/workspace@script /home/jenkins/workspace/pipe", returnStdout: true)
-def config = new HashMap()
-def thr = Thread.currentThread()
-def build = thr?.executable
-def buildMap = build.getBuildVariables()
-config.putAll(buildMap)
-def envVarsMap = build.parent.builds[0].properties.get("envVars")
-config.putAll(envVarsMap)
-def jobName = config.get("JOB_NAME")
-def jobURL = build.envVars.BUILD_URL
-echo(jobName)
     }
 }
 
