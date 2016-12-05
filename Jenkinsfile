@@ -14,7 +14,7 @@ stage('checkout') {
             def gitShow = sh(script: "git show -p origin/master", returnStdout: true)
             echo(gitShow)
             for (set in currentBuild.changeSets) {
-                echo(set)
+                echo(set.toString())
             }
     }
 }
