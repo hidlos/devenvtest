@@ -67,8 +67,8 @@ def runTestForDirectory(dir, rootPath) {
 
 def getDirectoriesForBuild(committedFiles)
 {
-    def dockerImageDirectories = sh (script: "find . -name package.json -printf '%h '", returnStdout: true)
-    return getAffectedDirs(dockerImageDirectories, committedFiles)
+    def dockerImageDirectories = sh (script: "find . -name Dockerfile -printf '%h '", returnStdout: true)
+    return getAffectedDirs(dockerImageDirectories.toString().split(' '), committedFiles)
 }
 
 def buildImages(dockerImageDirectories, rootPath)
