@@ -5,6 +5,7 @@ stage('env') {
         sh 'env'
         def gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
         echo(gitCommit)
+
     }
 }
 
