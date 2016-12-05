@@ -11,17 +11,10 @@ stage('checkout') {
             for (set in currentBuild.changeSets) {
                 def items = set.getItems()
                 for (item in items) {
-                    echo(item)
+                    echo(item.toString())
                 }
             }
             echo "konec"
-            def changeSetIterator = currentBuild.changeSets.iterator()
-            while (changeSetIterator.hasNext()) {
-              def gitChangeSet = changeSetIterator.next()
-              for (pat in gitChangeSet.getPaths()) {
-                echo(path.getPath())
-              }
-            }
     }
 }
 
