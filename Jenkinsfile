@@ -3,7 +3,8 @@
 stage('checkout') {
     node ('nodejs') {
         sh (script: "rm -rf /home/jenkins/workspace/pipe && cp -r -a /home/jenkins/jobs/pipe/workspace@script /home/jenkins/workspace/pipe", returnStdout: true)
-        sh "echo ${env.BRANCH_NAME}"
+        def branch = env.BRANCH_NAME
+        sh "My branch name: ${branch}"
     }
 }
 
