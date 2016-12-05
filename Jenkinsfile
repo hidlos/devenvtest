@@ -2,20 +2,12 @@
 
 stage('checkout') {
     node ('nodejs') {
-            sh 'pwd'
-            sh 'ls'
-            sh (script: "cd /home/jenkins/workspace/pipe/ && rm -rf * && cp -r -a /home/jenkins/jobs/pipe/workspace@script/* /home/jenkins/workspace/pipe/ && ls && pwd", returnStdout: true)
-            sh (script: "cd /home/jenkins/workspace/ && rm -rf pipe &&  cp -r -a /home/jenkins/jobs/pipe/workspace@script /home/jenkins/workspace/pipe && ls && pwd", returnStdout: true)
+        sh (script: "cd /home/jenkins/workspace/ && rm -rf pipe &&  cp -r -a /home/jenkins/jobs/pipe/workspace@script /home/jenkins/workspace/pipe", returnStdout: true)
     }
 }
 
 stage('run tests') {
     node ('nodejs') {
-        sh 'sleep 10'
-        sh 'cat Jenkinsfile'
-        sh 'pwd'
-        sh 'ls'
-        sh 'echo $WORKSPACE'
         runTests()
     }
 }
