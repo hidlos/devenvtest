@@ -2,9 +2,9 @@
 
 stage('checkout') {
     node ('nodejs') {
-        sh (script: "cd /home/jenkins/workspace/", returnStdout: true)
-        sh (script: "rm -rf pipe", returnStdout: true)
-        sh (script: "cp -r -a /home/jenkins/jobs/pipe/workspace@script /home/jenkins/workspace/pipe", returnStdout: true)
+        sh (script: "rm -rf /home/jenkins/workspace/pipe", returnStdout: true)
+        sh (script: "cd ~ && cp -r -a /home/jenkins/jobs/pipe/workspace@script /home/jenkins/workspace/pipe", returnStdout: true)
+
 
     }
 }
