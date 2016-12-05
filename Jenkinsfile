@@ -10,6 +10,7 @@ stage('checkout') {
 
 stage('run tests') {
     node ('nodejs') {
+        sh 'sleep 10'
         sh 'cat Jenkinsfile'
         sh 'pwd'
         sh 'ls'
