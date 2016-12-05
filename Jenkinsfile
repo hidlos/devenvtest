@@ -3,10 +3,7 @@
 stage('checkout') {
     node ('nodejs') {
         sh (script: "rm -rf /home/jenkins/workspace/pipe && cp -r -a /home/jenkins/jobs/pipe/workspace@script /home/jenkins/workspace/pipe", returnStdout: true)
-        sh 'env'
-        sh '$GIT_COMMIT'
-        echo('$GIT_COMMIT')
-        echo($GIT_COMMIT)
+        sh "echo ${env.BRANCH_NAME}"
     }
 }
 
