@@ -13,6 +13,7 @@ stage('checkout') {
             echo(gitCommit)
             def gitShow = sh(script: "git show -p origin/master", returnStdout: true)
             echo(gitShow)
+            echo(currentBuild.changeSets)
     }
 }
 
