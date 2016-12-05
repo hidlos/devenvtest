@@ -5,15 +5,15 @@ stage('checkout') {
             sh 'pwd'
             sh 'ls'
             sh (script: "cd /home/jenkins/workspace/pipe/ && rm -rf * && cp -r /home/jenkins/jobs/pipe/workspace@script/* /home/jenkins/workspace/pipe/ && ls && pwd", returnStdout: true)
-            sh 'cat Jenkinsfile'
-            sh 'pwd'
-            sh 'ls'
-            sh 'echo $WORKSPACE'
     }
 }
 
 stage('run tests') {
     node ('nodejs') {
+        sh 'cat Jenkinsfile'
+        sh 'pwd'
+        sh 'ls'
+        sh 'echo $WORKSPACE'
         runTests()
     }
 }
