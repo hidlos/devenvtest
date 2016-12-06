@@ -39,14 +39,18 @@ def runTests() {
 }
 
 def getCommittedFiles() {
-    def commitRange = getCommitRange()
-    def committedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true)
-    echo(committedFilesFromBash.toString())
-    return committedFilesFromBash.toString()
+    echo(changeSets())
 }
 
-def getCommitRange() {
-    return "5db9c43..c6bfc45"
+@NonCPS
+def changeSets() {
+    def text = ""
+    for (changeSetList in currentBuild.changeSets) {
+        for (changeSet in changeSetList) {
+            text += " - ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n"
+        }
+    }
+    return text
 }
 
 def getAffectedDirs(dirs, committedFiles) {
