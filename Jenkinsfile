@@ -8,14 +8,8 @@ stage('checkout') {
             def gitShow = sh(script: "git show -p origin/master", returnStdout: true)
             echo(gitShow)
             echo "zacatek"
-            for (set in currentBuild.changeSets) {
-                def items = set.getItems()
-                for (item in items) {
-                    echo(item.toString())
-                }
-            }
+            sh 'env'
             echo "konec"
-
     }
 }
 
