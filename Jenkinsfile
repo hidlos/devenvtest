@@ -15,7 +15,7 @@ stage('checkout') {
 
 stage('run tests') {
     node ('nodejs') {
-        // runTests()
+        runTests()
     }
 }
 
@@ -41,6 +41,7 @@ def runTests() {
 def getCommittedFiles() {
     def commitRange = getCommitRange()
     def committedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true)
+    echo(committedFilesFromBash.toString())
     return committedFilesFromBash.toString()
 }
 
