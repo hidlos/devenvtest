@@ -39,18 +39,24 @@ def runTests() {
 }
 
 def getCommittedFiles() {
-    echo(changeSets())
+    changeSets()
 }
 
 @NonCPS
 def changeSets() {
     def text = ""
     for (changeSetList in currentBuild.changeSets) {
-        for (changeSet in changeSetList) {
-            text += " - ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n"
-        }
+        printChangeSetInfo(changeSetList.first())
+        printChangeSetInfo(changeSetList.last())
+        // for (changeSet in changeSetList) {
+        //     text += " - ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n"
+        // }
     }
     return text
+}
+
+def printChangeSetInfo(changeSet) {
+    echo (" - ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n")
 }
 
 def getAffectedDirs(dirs, committedFiles) {
