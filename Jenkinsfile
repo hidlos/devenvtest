@@ -4,12 +4,8 @@ stage('checkout') {
     node ('nodejs') {
         sh (script: "rm -rf /home/jenkins/workspace/pipe && cp -r -a /home/jenkins/jobs/pipe/workspace@script /home/jenkins/workspace/pipe", returnStdout: true)
             def gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-            echo(gitCommit)
             def gitShow = sh(script: "git show -p origin/master", returnStdout: true)
-            echo(gitShow)
-            echo "zacatek"
             sh 'env'
-            echo "konec"
     }
 }
 
@@ -44,7 +40,6 @@ def getCommittedFiles() {
 
 @NonCPS
 def changeSets() {
-    def text = ""
     for (changeSetList in currentBuild.changeSets) {
         printChangeSetInfo(changeSetList.first())
         printChangeSetInfo(changeSetList.last())
@@ -52,11 +47,10 @@ def changeSets() {
         //     text += " - ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n"
         // }
     }
-    return text
 }
 
 def printChangeSetInfo(changeSet) {
-    echo (" - ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n")
+    echo ("ARSI ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n")
 }
 
 def getAffectedDirs(dirs, committedFiles) {
