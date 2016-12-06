@@ -8,7 +8,6 @@ stage('checkout') {
             def gitShow = sh(script: "git show -p origin/master", returnStdout: true)
             echo(gitShow)
             echo "zacatek"
-
             sh 'env'
             echo "konec"
     }
