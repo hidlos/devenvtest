@@ -20,9 +20,12 @@ stage('run tests') {
 }
 
 stage('build images') {
-    node ('nodejs') {
+    node ('master') {
 	def result = sh (script: "curl GET localhost:8080/job/pipe/90/api/xml | xmllint --xpath '//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()' -", returnStdout: true)
 	echo(result)
+    }
+
+    node ('nodejs') {
         def directoriesForBuild = getDirectoriesForBuild(getCommittedFiles())
         def rootPath = pwd()
         // buildImages(directoriesForBuild, rootPath)
