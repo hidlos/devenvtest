@@ -5,3 +5,4 @@ Contents:
 - apps/app1 example application that can be packaged as a Docker container
 - domain/module1 a dependency for app1
 
+Runs on Jenkins and Travis.
