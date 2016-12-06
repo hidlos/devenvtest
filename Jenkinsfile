@@ -15,6 +15,7 @@ stage('checkout') {
                 }
             }
             echo "konec"
+
     }
 }
 
