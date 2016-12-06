@@ -15,14 +15,14 @@ stage('checkout') {
 
 stage('run tests') {
     node ('nodejs') {
-        runTests()
+        getCommittedFiles()
     }
 }
 
 stage('build images') {
     node ('nodejs') {
-        def directoriesForBuild = getDirectoriesForBuild(getCommittedFiles())
-        def rootPath = pwd()
+        // def directoriesForBuild = getDirectoriesForBuild(getCommittedFiles())
+        // def rootPath = pwd()
         // buildImages(directoriesForBuild, rootPath)
     }
 }
