@@ -10,6 +10,7 @@ stage('checkout') {
             echo "zacatek"
             sh 'env'
             echo "konec"
+            sh 'sleep 10'
     }
 }
 
