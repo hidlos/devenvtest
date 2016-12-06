@@ -41,17 +41,10 @@ def getCommittedFiles() {
 @NonCPS
 def changeSets() {
     for (changeSetList in currentBuild.changeSets) {
-        printFirstChangeSetInfo(changeSetList.first())
-        printLastChangeSetInfo(changeSetList.last())
+        def firstCommit = changeSetList.first().getCommitId()
+        def secondCommit = changeSetList.last().getCommitId()
+        echo("ARSI result: ${firstCommit} ... ${secondCommit}")
     }
-}
-
-def printFirstChangeSetInfo(changeSet) {
-    echo ("ARSI first: ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n")
-}
-
-def printLastChangeSetInfo(changeSet) {
-    echo ("ARSI last: ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n")
 }
 
 def getAffectedDirs(dirs, committedFiles) {
