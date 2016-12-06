@@ -7,7 +7,7 @@
     "test": "mocha -w",
     "test:single": "mocha"
   },
-  "author": "",
+  "author": "arsi",
   "license": "ISC",
   "dependencies": {
     "bluebird": "2.3.0"
