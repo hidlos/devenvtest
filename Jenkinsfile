@@ -46,7 +46,7 @@ def getCommittedFiles() {
 }
 
 def getCommitRange() {
-    return "e17e329..4ffc20f"
+    return "e4db8fb..4ffc20f"
 }
 
 def getAffectedDirs(dirs, committedFiles) {
