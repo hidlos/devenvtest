@@ -1,6 +1,6 @@
 function App() {
     this.start = function () {
-        
+        return null;
     }
 }
 
