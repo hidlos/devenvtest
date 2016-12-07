@@ -65,7 +65,7 @@ def getCommitRange() {
     }
     def gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
     echo(gitCommit)
-
+sh 'xxx'
     return "e17e329..4ffc20f"
 }
 
