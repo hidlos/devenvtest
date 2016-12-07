@@ -111,5 +111,5 @@ def getAppDirectories() {
 }
 
 def buildImage(dir) {
-    sh (script: "bash ./scripts/buildImage.sh '$dir' '$WORKSPACE'", returnStdout: true)
+    echo(sh (script: "bash ./scripts/buildImage.sh '$dir' '$WORKSPACE'", returnStdout: true))
 }
