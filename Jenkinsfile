@@ -31,11 +31,13 @@ def getCommitRange() {
 
 def runTests() {
     def directoriesForTest = getDirectoriesForTest()
-    def rootPath = pwd()
+    runFnInDirectories(directories, runTestForDirectory)
 
-    for (dir in directoriesForTest) {
-        runTestForDirectory(dir, rootPath)
-    }
+    //def rootPath = pwd()
+
+    //for (dir in directoriesForTest) {
+    //    runTestForDirectory(dir, rootPath)
+    //}
 }
 
 def getDirectoriesForTest() {
@@ -81,10 +83,18 @@ def buildImages() {
     def rootPath = pwd()
 
     for (dir in directoriesForBuildImages) {
-        buildImage(dir, rootPath)
+        //buildImage(dir, rootPath)
     }
 }
 
 def buildImage(dir, rootPath) {
     sh (script: "bash ./scripts/buildImage.sh '$dir' '$rootPath'", returnStdout: true)
+}
+
+def runFnInDirectories(directories, fn) {
+    def rootPath = pwd()
+
+    for (dir in directories) {
+        fn(dir, rootPath)
+    }
 }
