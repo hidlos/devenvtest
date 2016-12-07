@@ -44,10 +44,10 @@ def getAffectedDirs(dirs) {
     for (dir in dirs) {
         currentDir = dir.substring(2,dir.length())
         if (affectedFiles.contains(currentDir)) {
+            echo(currentDir)
             affectedDirs.push(currentDir)
         }
     }
-    echo(affectedDirs)
     sh 'xxx'
     return affectedDirs
 }
