@@ -53,7 +53,7 @@ def getAffectedDirs(dirs) {
 
 def getAffectedFilesFromCommit() {
     def commitRange = getCommitRange()
-    def affectedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: false).toString()
+    def affectedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true).toString()
     echo(affectedFilesFromBash)
     return affectedFilesFromBash
 }
