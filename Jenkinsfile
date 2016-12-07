@@ -77,6 +77,7 @@ def changeSets() {
         def firstCommit = changeSetList.first().getCommitId()
         def secondCommit = changeSetList.last().getCommitId()
         echo("ARSI result: ${firstCommit}..${secondCommit}")
+        return ${firstCommit}..${secondCommit}
     }
 }
 
