@@ -15,7 +15,7 @@ describe('App', function () {
         });
 
         it('should fail', function () {
-           expect(true).to.be.true;
+           expect(true).to.be.false;
         });
 
     });
