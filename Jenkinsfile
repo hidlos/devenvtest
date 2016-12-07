@@ -54,18 +54,17 @@ def getAffectedDirs(dirs) {
 def getAffectedFilesFromCommit() {
     def commitRange = getCommitRange()
     def affectedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true).toString()
-    echo(affectedFilesFromBash)
     return affectedFilesFromBash
 }
 
 def getCommitRange() {
     def lastSuccessfulBuildHash
-    def lastCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+    def actualCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 
     node ('master') {
         lastSuccessfulBuildHash = getLastSuccessfulBuildHash()
     }
-    return lastSuccessfulBuildHash + '..' + lastCommit
+    return lastSuccessfulBuildHash + '..' + actualCommit
 }
 
 def runTestForDirectory(dir, rootPath) {
