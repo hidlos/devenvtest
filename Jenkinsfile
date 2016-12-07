@@ -6,12 +6,6 @@ stage('build workspace') {
     }
 }
 
-stage('set variables') {
-    node ('nodejs') {
-        setVariables()
-    }
-}
-
 stage('run tests') {
     node ('nodejs') {
         runTests()
@@ -20,12 +14,8 @@ stage('run tests') {
 
 stage('build images') {
     node ('nodejs') {
-        buildImages(rootPath)
+        buildImages()
     }
-}
-
-def setVariables() {
-    def rootPath = pwd()
 }
 
 def getAffectedFilesFromCommit() {
@@ -86,11 +76,15 @@ def getAppDirectories() {
     return sh (script: "find . -name Dockerfile -printf '%h '", returnStdout: true).toString().split(' ')
 }
 
-def buildImages(rootPath) {
+def buildImages() {
     def directoriesForBuildImages = getDirectoriesForBuildImages()
     def rootPath = pwd()
 
     for (dir in directoriesForBuildImages) {
-        sh (script: "bash ./scripts/buildImage.sh '$dir' '$rootPath'", returnStdout: true)
+        buildImage(dir, rootPath)
     }
+}
+
+def buildImage(dir, rootPath) {
+    sh (script: "bash ./scripts/buildImage.sh '$dir' '$rootPath'", returnStdout: true)
 }
