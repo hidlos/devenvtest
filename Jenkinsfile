@@ -21,7 +21,7 @@ stage('build images') {
 @NonCPS
 def runTests() {
     def directoriesForTest = getDirectoriesForTest()
-    directoriesForTest.each runTestForDirectory
+    directoriesForTest.each { runTestForDirectory }
 
     //for (dir in directoriesForTest) {
     //    runTestForDirectory(dir)
