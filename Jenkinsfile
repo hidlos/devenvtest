@@ -1,25 +1,18 @@
 #!groovy
 
-def rootPath2
-
 stage('set variables') {
 
     node ('master') {
+        sh 'env'
         def rootPath3 = pwd() + '@script'
         echo(rootPath3)
-    }
-
-    node ('nodejs') {
-        rootPath2 = pwd()
-        echo(rootPath2)
     }
 }
 
 stage('build workspace') {
     node ('nodejs') {
-        echo(rootPath2)
         sh 'env'
-        sh (script: "rm -rf $rootPath2 && cp -r -a /home/jenkins/jobs/pipe/workspace@script $rootPath2", returnStdout: true)
+        sh (script: "rm -rf $WORKSPACE && cp -r -a /home/jenkins/jobs/pipe/workspace@script $WORKSPACE", returnStdout: true)
     }
 }
 
@@ -37,10 +30,9 @@ stage('build images') {
 
 def runTests() {
     def directoriesForTest = getDirectoriesForTest()
-    def rootPath = pwd()
 
     for (dir in directoriesForTest) {
-        runTestForDirectory(dir, rootPath)
+        runTestForDirectory(dir)
     }
 }
 
@@ -84,8 +76,8 @@ def getCommitRange() {
     return lastSuccessfulBuildHash + '..' + actualCommit
 }
 
-def runTestForDirectory(dir, rootPath) {
-    echo(sh (script: "cd $rootPath/$dir && npm prune && npm install && npm run test:single", returnStdout: true))
+def runTestForDirectory(dir) {
+    echo(sh (script: "cd $WORKSPACE/$dir && npm prune && npm install && npm run test:single", returnStdout: true))
 }
 
 def getLastSuccessfulBuildHash() {
@@ -96,10 +88,9 @@ def getLastSuccessfulBuildHash() {
 
 def buildImages() {
     def directoriesForBuildImages = getDirectoriesForBuildImages()
-    def rootPath = pwd()
 
     for (dir in directoriesForBuildImages) {
-        //buildImage(dir, rootPath)
+        //buildImage(dir)
     }
 }
 
@@ -112,6 +103,6 @@ def getAppDirectories() {
     return sh (script: "find . -name Dockerfile -printf '%h '", returnStdout: true).toString().split(' ')
 }
 
-def buildImage(dir, rootPath) {
-    sh (script: "bash ./scripts/buildImage.sh '$dir' '$rootPath'", returnStdout: true)
+def buildImage(dir) {
+    sh (script: "bash ./scripts/buildImage.sh '$dir' '$WORKSPACE'", returnStdout: true)
 }
