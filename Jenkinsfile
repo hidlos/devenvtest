@@ -70,6 +70,7 @@ def getCommitRange() {
     return lastSuccessfulBuildHash + '..' + actualCommit
 }
 
+
 @NonCPS
 def changeSets() {
     for (changeSetList in currentBuild.changeSets) {
