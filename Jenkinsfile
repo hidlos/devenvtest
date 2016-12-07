@@ -35,7 +35,7 @@ def runTests() {
 
     def rootPath = pwd()
 
-    directoriesForTest.each runTestForDirectory2
+    directoriesForTest.each {runTestForDirectory2}
     //for (dir in directoriesForTest) {
     //    runTestForDirectory(dir, rootPath)
     //}
