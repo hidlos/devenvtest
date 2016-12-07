@@ -2,6 +2,7 @@ var DevEnvTest = require("./DevEnvTest");
 var expect = require('expect.js');
 
 describe('DevEnvTest', function () {
+
     var devEnvTest;
 
     beforeEach(function () {
