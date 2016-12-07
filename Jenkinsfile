@@ -31,10 +31,11 @@ def getCommitRange() {
 
 def runTests() {
     def directoriesForTest = getDirectoriesForTest()
-    runFnInDirectories(directoriesForTest, {runTestForDirectory})
+    //runFnInDirectories(directoriesForTest, {runTestForDirectory})
 
-    //def rootPath = pwd()
+    def rootPath = pwd()
 
+    directoriesForTest.each runTestForDirectory
     //for (dir in directoriesForTest) {
     //    runTestForDirectory(dir, rootPath)
     //}
@@ -63,10 +64,13 @@ def getModuleDirectories() {
     return moduleDirsFromBash.toString().split(' ')
 }
 
-def runTestForDirectory(dir, rootPath) {
-    //echo(sh (script: "cd $rootPath/$dir && ls", returnStdout: true))
+def runTestForDirectory2(dir) {
+    def rootPath = pwd()
     echo(sh (script: "cd $rootPath/$dir && npm prune && npm install && npm run test:single", returnStdout: true))
-    //sh (script: "echo \"`bash scripts/runTests.sh apps/app1 $rootPath`\"", returnStdout: true)
+}
+
+def runTestForDirectory(dir, rootPath) {
+    echo(sh (script: "cd $rootPath/$dir && npm prune && npm install && npm run test:single", returnStdout: true))
 }
 
 def getDirectoriesForBuildImages() {
