@@ -31,11 +31,10 @@ def getCommitRange() {
 
 def runTests() {
     def directoriesForTest = getDirectoriesForTest()
-    //runFnInDirectories(directoriesForTest, {runTestForDirectory})
+    runFnInDirectories(directoriesForTest, 'runTestForDirectory')
 
-    def rootPath = pwd()
+    //def rootPath = pwd()
 
-    directoriesForTest.each {runTestForDirectory2}
     //for (dir in directoriesForTest) {
     //    runTestForDirectory(dir, rootPath)
     //}
@@ -62,11 +61,6 @@ def getAffectedDirs(dirs) {
 def getModuleDirectories() {
     def moduleDirsFromBash = sh (script: "find . -name package.json -printf '%h '", returnStdout: true)
     return moduleDirsFromBash.toString().split(' ')
-}
-
-def runTestForDirectory2(dir) {
-    def rootPath = pwd()
-    echo(sh (script: "cd $rootPath/$dir && npm prune && npm install && npm run test:single", returnStdout: true))
 }
 
 def runTestForDirectory(dir, rootPath) {
