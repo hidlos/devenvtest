@@ -26,7 +26,7 @@ def getAffectedFilesFromCommit() {
 }
 
 def getCommitRange() {
-    return "5db9c43..c6bfc45"
+    return "e17e329..4ffc20f"
 }
 
 def runTests() {
