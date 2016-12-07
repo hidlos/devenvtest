@@ -60,11 +60,11 @@ def getAffectedFilesFromCommit() {
 def getCommitRange() {
 
     node ('master') {
-	    def result = sh (script: "curl GET localhost:8080/job/pipe/90/api/xml | xmllint --xpath '//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()' -", returnStdout: true)
+	    def result = sh (script: "curl GET localhost:8080/job/pipe/lastSuccessfulBuild/api/xml | xmllint --xpath '//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()' -", returnStdout: true)
 	    echo(result)
-        def gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-        echo(gitCommit)
     }
+    def gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+    echo(gitCommit)
 
     return "e17e329..4ffc20f"
 }
