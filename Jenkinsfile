@@ -65,6 +65,7 @@ def getCommitRange() {
     node ('master') {
         lastSuccessfulBuildHash = getLastSuccessfulBuildHash()
     }
+    echo(lastSuccessfulBuildHash + '..' + actualCommit)
     return lastSuccessfulBuildHash + '..' + actualCommit
 }
 
