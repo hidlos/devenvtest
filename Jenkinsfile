@@ -74,10 +74,8 @@ def getCommitRange() {
 @NonCPS
 def changeSets() {
     for (changeSetList in currentBuild.changeSets) {
-        for (x in changeSetList.getItems()) {
-            for (y in x) {
-                echo(y.Entry().getAffectedFiles())
-            }
+        for (y in changeSetList.getItems()) {
+            echo(y.toString())
         }
         def firstCommit = changeSetList.first().getCommitId()
         def secondCommit = changeSetList.last().getCommitId()
