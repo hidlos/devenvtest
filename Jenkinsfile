@@ -6,6 +6,12 @@ stage('build workspace') {
     }
 }
 
+stage('set variables') {
+    node ('nodejs') {
+        setVariables()
+    }
+}
+
 stage('run tests') {
     node ('nodejs') {
         runTests()
@@ -16,6 +22,10 @@ stage('build images') {
     node ('nodejs') {
         buildImages(rootPath)
     }
+}
+
+def setVariables() {
+    def rootPath = pwd()
 }
 
 def getAffectedFilesFromCommit() {
