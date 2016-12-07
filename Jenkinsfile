@@ -1,18 +1,9 @@
 #!groovy
 
-stage('set variables') {
-
-    node ('master') {
-        sh 'env'
-        def rootPath3 = pwd() + '@script'
-        echo(rootPath3)
-    }
-}
-
 stage('build workspace') {
     node ('nodejs') {
         sh 'env'
-        sh (script: "rm -rf $WORKSPACE && cp -r -a /home/jenkins/jobs/pipe/workspace@script $WORKSPACE", returnStdout: true)
+        sh (script: "rm -rf $WORKSPACE && cp -r -a $SCRIPT_HOME $WORKSPACE", returnStdout: true)
     }
 }
 
