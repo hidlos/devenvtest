@@ -64,10 +64,9 @@ def getCommitRange() {
     node ('master') {
         lastSuccessfulBuildHash = getLastSuccessfulBuildHash()
     }
-
     echo(lastSuccessfulBuildHash+'..'+lastCommit)
-
-    return "e17e329..4ffc20f"
+    sh 'xxx'
+    return lastSuccessfulBuildHash + '..' + lastCommit
 }
 
 def runTestForDirectory(dir, rootPath) {
