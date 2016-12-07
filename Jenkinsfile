@@ -63,7 +63,7 @@ def getCommitRange() {
         def lastSuccessfulBuildHash = getLastSuccessfulBuildHash()
     }
     def lastCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-    echo(lastSuccessfulBuildHash+'..'+lastCommit)
+    echo(lastSuccessfulBuildHash)
     return "e17e329..4ffc20f"
 }
 
