@@ -1,7 +1,17 @@
 #!groovy
 
+def rootPath2
+
+stage('set variables') {
+    node ('nodejs') {
+        rootPath2 = pwd()
+        echo(rootPath2)
+    }
+}
+
 stage('build workspace') {
     node ('nodejs') {
+        echo(rootPath2)
         sh (script: "rm -rf /home/jenkins/workspace/pipe && cp -r -a /home/jenkins/jobs/pipe/workspace@script /home/jenkins/workspace/pipe", returnStdout: true)
     }
 }
