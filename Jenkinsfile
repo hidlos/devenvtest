@@ -18,7 +18,6 @@ stage('build images') {
     }
 }
 
-@NonCPS
 def runTests() {
     def directoriesForTest = getDirectoriesForTest()
 
