@@ -74,7 +74,9 @@ def getCommitRange() {
 @NonCPS
 def changeSets() {
     for (changeSetList in currentBuild.changeSets) {
-        echo(changeSetList.getItems())
+        for (x in changeSetList.getItems()) {
+            echo(x)
+        }
         def firstCommit = changeSetList.first().getCommitId()
         def secondCommit = changeSetList.last().getCommitId()
         echo("ARSI result: ${firstCommit}..${secondCommit}")
