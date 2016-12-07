@@ -62,7 +62,7 @@ def getCommitRange() {
     node ('master') {
 	    def result = sh (script: "curl GET localhost:8080/job/pipe/lastSuccessfulBuild/api/xml | xmllint --xpath '//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()' -", returnStdout: true)
 	    echo(result)
-	    def result2 = sh (script: "bash ./scripts/script.sh && getLastSuccessfulBuildHash", returnStdout: true)
+	    def result2 = sh (script: "bash ./scripts/scripts.sh && getLastSuccessfulBuildHash", returnStdout: true)
 	    echo(result2)
     }
     def gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
