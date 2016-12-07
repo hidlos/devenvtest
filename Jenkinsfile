@@ -9,7 +9,7 @@ stage('build workspace') {
 stage('setup variables') {
     node ('nodejs') {
         def rootPath = pwd()
-        def commitedFiles = getCommittedFiles()
+        def affectedFiles = getAffectedFilesFromCommit()
     }
 }
 
@@ -25,11 +25,11 @@ stage('build images') {
     }
 }
 
-def getCommittedFiles() {
+def getAffectedFilesFromCommit() {
     def commitRange = getCommitRange()
-    def committedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true)
-    echo(committedFilesFromBash.toString())
-    return committedFilesFromBash.toString()
+    def affectedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true)
+    echo(affectedFilesFromBash.toString())
+    return affectedFilesFromBash.toString()
 }
 
 def getCommitRange() {
@@ -37,26 +37,33 @@ def getCommitRange() {
 }
 
 def runTests() {
-    def affectedDirs = getAffectedDirs(getModulesDirs(), commitedFiles)
+    def directoriesForTest = getDirectoriesForTest()
+    def rootPath = pwd()
 
-    for (dir in affectedDirs) {
+    for (dir in directoriesForTest) {
         runTestForDirectory(dir, rootPath)
     }
 }
 
-def getAffectedDirs(dirs, committedFiles) {
+def getDirectoriesForTest() {
+    def modulesDirectories = getModuleDirectories()
+    return getAffectedDirs(modulesDirectories)
+}
+
+def getAffectedDirs(dirs) {
+    def affectedFiles = getAffectedFilesFromCommit()
     def affectedDirs = []
 
     for (dir in dirs) {
         currentDir = dir.substring(2,dir.length())
-        if (committedFiles.contains(currentDir)) {
+        if (affectedFiles.contains(currentDir)) {
             affectedDirs.push(currentDir)
         }
     }
     return affectedDirs
 }
 
-def getModulesDirs() {
+def getModuleDirectories() {
     def moduleDirsFromBash = sh (script: "find . -name package.json -printf '%h '", returnStdout: true)
     return moduleDirsFromBash.toString().split(' ')
 }
@@ -67,13 +74,18 @@ def runTestForDirectory(dir, rootPath) {
     //sh (script: "echo \"`bash scripts/runTests.sh apps/app1 $rootPath`\"", returnStdout: true)
 }
 
-def getDirectoriesForBuild(committedFiles) {
-    def directoriesForBuildImages = sh (script: "find . -name Dockerfile -printf '%h '", returnStdout: true)
-    return getAffectedDirs(directoriesForBuildImages.toString().split(' '), committedFiles)
+def getDirectoriesForBuildImages() {
+    def appDirectories = getAppDirectories()
+    return getAffectedDirs(appDirectories)
+}
+
+def getAppDirectories() {
+    return sh (script: "find . -name Dockerfile -printf '%h '", returnStdout: true).toString().split(' ')
 }
 
 def buildImages(rootPath) {
-    def directoriesForBuildImages = getDirectoriesForBuild(commitedFiles)
+    def directoriesForBuildImages = getDirectoriesForBuildImages()
+    def rootPath = pwd()
 
     for (dir in directoriesForBuildImages) {
         sh (script: "bash ./scripts/buildImage.sh '$dir' '$rootPath'", returnStdout: true)
