@@ -2,7 +2,6 @@
 
 stage('build workspace') {
     node ('nodejs') {
-        sh 'env'
         sh (script: "rm -rf $WORKSPACE && cp -r -a $SCRIPT_HOME $WORKSPACE", returnStdout: true)
     }
 }
@@ -19,12 +18,14 @@ stage('build images') {
     }
 }
 
+@NonCPS
 def runTests() {
     def directoriesForTest = getDirectoriesForTest()
+    directoriesForTest.each runTestForDirectory
 
-    for (dir in directoriesForTest) {
-        runTestForDirectory(dir)
-    }
+    //for (dir in directoriesForTest) {
+    //    runTestForDirectory(dir)
+    //}
 }
 
 def getDirectoriesForTest() {
