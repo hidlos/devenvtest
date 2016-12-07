@@ -61,9 +61,9 @@ def getCommitRange() {
 
     node ('master') {
         def lastSuccessfulBuildHash = getLastSuccessfulBuildHash()
+    echo(lastSuccessfulBuildHash)
     }
     def lastCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-    echo(lastSuccessfulBuildHash)
     return "e17e329..4ffc20f"
 }
 
