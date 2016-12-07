@@ -6,13 +6,6 @@ stage('build workspace') {
     }
 }
 
-stage('setup variables') {
-    node ('nodejs') {
-        def rootPath = pwd()
-        def affectedFiles = getAffectedFilesFromCommit()
-    }
-}
-
 stage('run tests') {
     node ('nodejs') {
         runTests()
