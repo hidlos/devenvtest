@@ -21,6 +21,7 @@ stage('build images') {
 @NonCPS
 def runTests() {
     def directoriesForTest = getDirectoriesForTest()
+    echo(directoriesForTest)
     directoriesForTest.each { runTestForDirectory }
 
     //for (dir in directoriesForTest) {
@@ -65,7 +66,7 @@ def getCommitRange() {
     node ('master') {
         lastSuccessfulBuildHash = getLastSuccessfulBuildHash()
     }
-    echo(lastSuccessfulBuildHash + '..' + actualCommit)
+    return '12343e6fc29bd729b290e01a6a799a33914513df..7397e92b901e669b543efae7605dca2662ce50b9'
     return lastSuccessfulBuildHash + '..' + actualCommit
 }
 
