@@ -97,7 +97,7 @@ def buildImages() {
     def directoriesForBuildImages = getDirectoriesForBuildImages()
 
     for (dir in directoriesForBuildImages) {
-        //buildImage(dir)
+        buildImage(dir)
     }
 }
 
