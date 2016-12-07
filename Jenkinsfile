@@ -76,6 +76,7 @@ def changeSets() {
     for (changeSetList in currentBuild.changeSets) {
         def firstCommit = changeSetList.first().getCommitId()
         echo(changeSetList.first().getAffectedPaths().toString())
+        echo(changeSetList.first().getAffectedPaths().length)
         def secondCommit = changeSetList.last().getCommitId()
         echo("ARSI result: ${firstCommit}..${secondCommit}")
         return "${firstCommit}..${secondCommit}"
