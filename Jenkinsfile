@@ -22,6 +22,7 @@ stage('build images') {
 def runTests() {
     echo('neco')
     def directoriesForTest = getDirectoriesForTest()
+    echo('nic')
     directoriesForTest.each { runTestForDirectory(${it}) }
 
     //for (dir in directoriesForTest) {
