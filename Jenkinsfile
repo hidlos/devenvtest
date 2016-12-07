@@ -31,7 +31,7 @@ def getCommitRange() {
 
 def runTests() {
     def directoriesForTest = getDirectoriesForTest()
-    runFnInDirectories(directories, runTestForDirectory)
+    runFnInDirectories(directoriesForTest, runTestForDirectory)
 
     //def rootPath = pwd()
 
