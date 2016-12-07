@@ -58,13 +58,14 @@ def getAffectedFilesFromCommit() {
 }
 
 def getCommitRange() {
+    def lastSuccessfulBuildHash
+    def lastCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 
-    def lastSuccessfulBuildHash = "neco"
     node ('master') {
         lastSuccessfulBuildHash = getLastSuccessfulBuildHash()
     }
-    def lastCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-    echo(lastSuccessfulBuildHash)
+
+    echo(lastSuccessfulBuildHash+'..'lastCommit)
 
     return "e17e329..4ffc20f"
 }
