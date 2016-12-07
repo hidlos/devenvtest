@@ -66,7 +66,7 @@ def getCommitRange() {
     node ('master') {
         lastSuccessfulBuildHash = getLastSuccessfulBuildHash()
     }
-    return ch
+    //return ch
     return '12343e6fc29bd729b290e01a6a799a33914513df..7397e92b901e669b543efae7605dca2662ce50b9'
     return lastSuccessfulBuildHash + '..' + actualCommit
 }
@@ -75,6 +75,8 @@ def getCommitRange() {
 def changeSets() {
     for (changeSetList in currentBuild.changeSets) {
         def firstCommit = changeSetList.first().getCommitId()
+        echo(changeSetList.first().getAffectedPaths().toString())
+
         def secondCommit = changeSetList.last().getCommitId()
         echo("ARSI result: ${firstCommit}..${secondCommit}")
         return "${firstCommit}..${secondCommit}"
