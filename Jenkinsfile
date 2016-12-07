@@ -20,7 +20,6 @@ stage('build images') {
 
 def runTests() {
     def directoriesForTest = getDirectoriesForTest()
-    echo(directoriesForTest)
     directoriesForTest.each { runTestForDirectory }
 
     //for (dir in directoriesForTest) {
@@ -45,6 +44,7 @@ def getAffectedDirs(dirs) {
     for (dir in dirs) {
         currentDir = dir.substring(2,dir.length())
         if (affectedFiles.contains(currentDir)) {
+            echo(currentDir)
             affectedDirs.push(currentDir)
         }
     }
