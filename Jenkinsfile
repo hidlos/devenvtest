@@ -20,14 +20,11 @@ stage('build images') {
 
 @NonCPS
 def runTests() {
-    echo('neco')
     def directoriesForTest = getDirectoriesForTest()
-    echo('nic')
-    directoriesForTest.each { runTestForDirectory(${it}) }
 
-    //for (dir in directoriesForTest) {
-    //    runTestForDirectory(dir)
-    //}
+    for (dir in directoriesForTest) {
+        runTestForDirectory(dir)
+    }
 }
 
 def getDirectoriesForTest() {
