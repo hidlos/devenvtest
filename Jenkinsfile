@@ -75,7 +75,9 @@ def getCommitRange() {
 def changeSets() {
     for (changeSetList in currentBuild.changeSets) {
         for (x in changeSetList.getItems()) {
-            echo(x)
+            for (y in x) {
+                echo(y.getItems())
+            }
         }
         def firstCommit = changeSetList.first().getCommitId()
         def secondCommit = changeSetList.last().getCommitId()
