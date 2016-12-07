@@ -76,7 +76,7 @@ def runTestForDirectory(dir, rootPath) {
 def getLastSuccessfulBuildHash() {
     def url = "localhost:8080/job/pipe/lastSuccessfulBuild/api/xml"
     def xml_path = '//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()'
-    def result = sh (script: "curl GET localhost:8080/job/pipe/lastSuccessfulBuild/api/xml | xmllint --xpath '$xml_path' -", returnStdout: true)
+    def result = sh (script: "curl GET localhost:8080/job/pipe/lastSuccessfulBuild/api/xml | xmllint --xpath '//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()' -", returnStdout: true)
 }
 
 def buildImages() {
