@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 function getLastSuccessfulBuildHash() {
     XML_URL=localhost:8080/job/pipe/lastSuccessfulBuild/api/xml
     XML_PATH='//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()'
