@@ -18,31 +18,23 @@ stage('build images') {
     }
 }
 
-def getAffectedFilesFromCommit() {
-    def commitRange = getCommitRange()
-    def affectedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true)
-    echo(affectedFilesFromBash.toString())
-    return affectedFilesFromBash.toString()
-}
-
-def getCommitRange() {
-    return "e17e329..4ffc20f"
-}
-
 def runTests() {
     def directoriesForTest = getDirectoriesForTest()
-    runFnInDirectories(directoriesForTest, 'runTestForDirectory')
+    def rootPath = pwd()
 
-    //def rootPath = pwd()
-
-    //for (dir in directoriesForTest) {
-    //    runTestForDirectory(dir, rootPath)
-    //}
+    for (dir in directoriesForTest) {
+        runTestForDirectory(dir, rootPath)
+    }
 }
 
 def getDirectoriesForTest() {
     def modulesDirectories = getModuleDirectories()
     return getAffectedDirs(modulesDirectories)
+}
+
+def getModuleDirectories() {
+    def moduleDirsFromBash = sh (script: "find . -name package.json -printf '%h '", returnStdout: true)
+    return moduleDirsFromBash.toString().split(' ')
 }
 
 def getAffectedDirs(dirs) {
@@ -58,22 +50,19 @@ def getAffectedDirs(dirs) {
     return affectedDirs
 }
 
-def getModuleDirectories() {
-    def moduleDirsFromBash = sh (script: "find . -name package.json -printf '%h '", returnStdout: true)
-    return moduleDirsFromBash.toString().split(' ')
+def getAffectedFilesFromCommit() {
+    def commitRange = getCommitRange()
+    def affectedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true).toString()
+    echo(affectedFilesFromBash)
+    return affectedFilesFromBash
+}
+
+def getCommitRange() {
+    return "e17e329..4ffc20f"
 }
 
 def runTestForDirectory(dir, rootPath) {
     echo(sh (script: "cd $rootPath/$dir && npm prune && npm install && npm run test:single", returnStdout: true))
-}
-
-def getDirectoriesForBuildImages() {
-    def appDirectories = getAppDirectories()
-    return getAffectedDirs(appDirectories)
-}
-
-def getAppDirectories() {
-    return sh (script: "find . -name Dockerfile -printf '%h '", returnStdout: true).toString().split(' ')
 }
 
 def buildImages() {
@@ -85,14 +74,15 @@ def buildImages() {
     }
 }
 
-def buildImage(dir, rootPath) {
-    sh (script: "bash ./scripts/buildImage.sh '$dir' '$rootPath'", returnStdout: true)
+def getDirectoriesForBuildImages() {
+    def appDirectories = getAppDirectories()
+    return getAffectedDirs(appDirectories)
 }
 
-def runFnInDirectories(directories, fn) {
-    def rootPath = pwd()
+def getAppDirectories() {
+    return sh (script: "find . -name Dockerfile -printf '%h '", returnStdout: true).toString().split(' ')
+}
 
-    for (dir in directories) {
-        fn(dir, rootPath)
-    }
+def buildImage(dir, rootPath) {
+    sh (script: "bash ./scripts/buildImage.sh '$dir' '$rootPath'", returnStdout: true)
 }
