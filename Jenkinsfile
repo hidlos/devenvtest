@@ -76,7 +76,7 @@ def changeSets() {
     for (changeSetList in currentBuild.changeSets) {
         for (x in changeSetList.getItems()) {
             for (y in x) {
-                echo(y.getAffectedFiles())
+                echo(y.Entry().getAffectedFiles())
             }
         }
         def firstCommit = changeSetList.first().getCommitId()
