@@ -64,7 +64,7 @@ def getCommitRange() {
 	    echo(result)
     }
     sh 'ls'
-    sh './scripts/scripts.sh'
+    sh 'source ./scripts/scripts.sh'
     def result2 = sh (script: "getLastSuccessfulBuildHash", returnStdout: true)
     echo(result2)
     def gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
