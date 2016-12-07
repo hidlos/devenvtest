@@ -48,7 +48,6 @@ def getAffectedDirs(dirs) {
             affectedDirs.push(currentDir)
         }
     }
-    sh 'xxx'
     return affectedDirs
 }
 
