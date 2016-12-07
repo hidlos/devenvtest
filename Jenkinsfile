@@ -5,7 +5,7 @@ def rootPath2
 stage('set variables') {
 
     node ('master') {
-        def rootPath3 = pwd()
+        def rootPath3 = pwd() + '@script'
         echo(rootPath3)
     }
 
@@ -18,6 +18,7 @@ stage('set variables') {
 stage('build workspace') {
     node ('nodejs') {
         echo(rootPath2)
+        sh 'env'
         sh (script: "rm -rf $rootPath2 && cp -r -a /home/jenkins/jobs/pipe/workspace@script $rootPath2", returnStdout: true)
     }
 }
