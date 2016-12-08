@@ -12,10 +12,11 @@ function getCommitRange() {
     ACTUAL_COMMIT=`git rev-parse HEAD`
 
     #IF WE USE AGENTS, THIS HAS TO BE RUN ON MASTER
-    LAST_SUCCESSFUL_BUILD_HASH=`getLastSuccessfulBuildHash`
+    #LAST_SUCCESSFUL_BUILD_HASH=`getLastSuccessfulBuildHash`
 
-    echo 47e53f4256ebea159bf03664b5b9f13db9f367ae..bd3ea1c829b65c18ffd1aca333976483fbf22597
-    #echo $LAST_SUCCESSFUL_BUILD_HASH..$ACTUAL_COMMIT
+    echo 12343e6fc29bd729b290e01a6a799a33914513df..7397e92b901e669b543efae7605dca2662ce50b9
+#    echo 47e53f4256ebea159bf03664b5b9f13db9f367ae..bd3ea1c829b65c18ffd1aca333976483fbf22597
+#    echo $LAST_SUCCESSFUL_BUILD_HASH..$ACTUAL_COMMIT
 }
 
 function getAffectedFilesFromCommit() {
@@ -47,11 +48,11 @@ function getDirectoriesForTest() {
 function runTestForDirectory() {
     DIRECTORY_FOR_TESTING=$WORKSPACE/$1
 
-    source ~/.profile
+    #source ~/.profile
     cd $DIRECTORY_FOR_TESTING
-    npm prune
-    npm install
-    npm run test
+    #npm prune
+    #npm install
+    #npm run test
 }
 
 function runTests() {
