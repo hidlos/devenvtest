@@ -13,7 +13,7 @@ function getCommitRange() {
 
     #IF WE USE AGENTS, THIS HAS TO BE RUN ON MASTER
     LAST_SUCCESSFUL_BUILD_HASH=`getLastSuccessfulBuildHash`
-    return '47e53f4256ebea159bf03664b5b9f13db9f367ae..bd3ea1c829b65c18ffd1aca333976483fbf22597'
+    return 47e53f4256ebea159bf03664b5b9f13db9f367ae..bd3ea1c829b65c18ffd1aca333976483fbf22597
     #return $LAST_SUCCESSFUL_BUILD_HASH..$ACTUAL_COMMIT
 }
 
