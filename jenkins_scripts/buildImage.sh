@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
 DIR=$1
-ROOT_PATH=$2
 
 function getNodeModuleVersion() {
     echo `grep -Po '(?<="version". ")[^"]*' package.json`
 }
 
-cd $ROOT_PATH/$DIR
+cd $WORKSPACE/$DIR
 echo "Building and publishing Docker image $DIR"
 IMAGE_VERSION=`getNodeModuleVersion`
 echo "Image will be tagged with $IMAGE_VERSION"
