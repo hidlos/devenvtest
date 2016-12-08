@@ -7,6 +7,6 @@ function onResponse(request, response) {
 }
 
 var server = http.createServer(onResponse);
-server.listen(9233);
+server.listen(80);
 
-console.log("Server running at http://127.0.0.1:9233/");
+console.log("Server running at http://127.0.0.1:80/");
