@@ -47,7 +47,7 @@ function getDirectoriesForTest() {
 function runTestForDirectory() {
     DIRECTORY_FOR_TESTING=$WORKSPACE/$1
 
-    source ~/.profile
+    #source ~/.profile
     cd $DIRECTORY_FOR_TESTING
     npm prune
     npm install
@@ -58,10 +58,9 @@ function runTests() {
     DIRS_FOR_TEST=`getDirectoriesForTest`
 
     for DIR in $DIRS_FOR_TEST
-    do
-        echo $DIR
-      #runTestForDirectory $DIR
-    done
+        do
+            runTestForDirectory $DIR
+        done
 }
 
 echo `runTests`
