@@ -3,6 +3,7 @@
 source $WORKSPACE/jenkins_scripts/getAffectedDirs.sh
 
 function getAppDirectories() {
+    find . -name Dockerfile -printf '%h\n'
     echo find . -name Dockerfile -printf '%h\n'
 }
 

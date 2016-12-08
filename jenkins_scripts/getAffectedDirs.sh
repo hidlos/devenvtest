@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-ls
+
 function getLastSuccessfulBuildHash() {
     XML_URL=http://test-jenkins.billboard.intra:8080/job/$JOB_NAME/lastSuccessfulBuild/api/xml
     XML_PATH='//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()'
