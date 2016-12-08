@@ -8,11 +8,11 @@ function getAppDirectories() {
 
 function getDirectoriesForBuildImages() {
     APP_DIRS=`getAppDirectories`
+    $APP_DIRS
     echo `getAffectedDirs '$APP_DIRS'`
 }
 
 function buildImage() {
-    ls -alF
     $WORKSPACE/jenkins_scripts/buildImage.sh $1
 }
 
