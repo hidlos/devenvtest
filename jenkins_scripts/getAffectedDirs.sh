@@ -27,7 +27,7 @@ function getAffectedFilesFromCommit() {
 function getAffectedDirs() {
     DIRS=$1
     AFFECTED_FILES=`getAffectedFilesFromCommit`
-    $AFFECTED_FILES
+$1
     for DIR in $DIRS; do
         CURRENT_DIR=`echo $DIR | cut -d '/' -f 2-`
         if [[ $AFFECTED_FILES == *"$CURRENT_DIR"* ]]; then
