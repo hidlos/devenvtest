@@ -1,20 +1,25 @@
 #!/usr/bin/env bash
 
 
-DIRS_FOR_TEST=`getDirectoriesForTest`
-
-for DIR in $DIRS_FOR_TEST
-do
-  `runTestForDirectory $DIR`
-done
-
-function getDirectoriesForTest() {
-    MODULES_DIRS=`getModuleDirectories`
-    return `getAffectedDirs $MODULES_DIRS`
+function getLastSuccessfulBuildHash() {
+    XML_URL=http://test-jenkins.billboard.intra:8080/job/$JOB_NAME/lastSuccessfulBuild/api/xml
+    XML_PATH='//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()'
+    return `curl -G $XML_URL | xmllint --xpath '$XML_PATH' -`
 }
 
-function getModuleDirectories() {
-    return `find . -name package.json -printf '%h\n'`
+
+function getCommitRange() {
+    ACTUAL_COMMIT=`git rev-parse HEAD`
+
+    #IF WE USE AGENTS, THIS HAS TO BE RUN ON MASTER
+    LAST_SUCCESSFUL_BUILD_HASH=`getLastSuccessfulBuildHash`
+    return '47e53f4256ebea159bf03664b5b9f13db9f367ae..bd3ea1c829b65c18ffd1aca333976483fbf22597'
+    #return $LAST_SUCCESSFUL_BUILD_HASH..$ACTUAL_COMMIT
+}
+
+function getAffectedFilesFromCommit() {
+    COMMIT_RANGE=`getCommitRange`
+    return `git diff --name-only $COMMIT_RANGE`
 }
 
 function getAffectedDirs() {
@@ -29,24 +34,13 @@ function getAffectedDirs() {
     done
 }
 
-function getAffectedFilesFromCommit() {
-    COMMIT_RANGE=`getCommitRange`
-    return `git diff --name-only $COMMIT_RANGE`
+function getModuleDirectories() {
+    return `find . -name package.json -printf '%h\n'`
 }
 
-function getCommitRange() {
-    ACTUAL_COMMIT=`git rev-parse HEAD`
-
-    #IF WE USE AGENTS, THIS HAS TO BE RUN ON MASTER
-    LAST_SUCCESSFUL_BUILD_HASH=`getLastSuccessfulBuildHash`
-    return '47e53f4256ebea159bf03664b5b9f13db9f367ae..bd3ea1c829b65c18ffd1aca333976483fbf22597'
-    #return $LAST_SUCCESSFUL_BUILD_HASH..$ACTUAL_COMMIT
-}
-
-function getLastSuccessfulBuildHash() {
-    XML_URL=http://test-jenkins.billboard.intra:8080/job/$JOB_NAME/lastSuccessfulBuild/api/xml
-    XML_PATH='//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()'
-    return `curl -G $XML_URL | xmllint --xpath '$XML_PATH' -`
+function getDirectoriesForTest() {
+    MODULES_DIRS=`getModuleDirectories`
+    return `getAffectedDirs $MODULES_DIRS`
 }
 
 function runTestForDirectory() {
@@ -58,3 +52,14 @@ function runTestForDirectory() {
     npm install
     npm run test
 }
+
+function runTests() {
+    DIRS_FOR_TEST=`getDirectoriesForTest`
+
+    for DIR in $DIRS_FOR_TEST
+    do
+      `runTestForDirectory $DIR`
+    done
+}
+
+runTests
