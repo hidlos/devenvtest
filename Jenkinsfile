@@ -15,6 +15,7 @@ stage('run tests') {
 
 stage('build images') {
     node ('nodejs') {
+        echo(sh (script: "bash ./jenkins_scripts/buildImages.sh", echoStdout: true))
         //buildImages()
     }
 }
