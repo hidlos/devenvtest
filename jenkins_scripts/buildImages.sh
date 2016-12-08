@@ -12,7 +12,8 @@ function getDirectoriesForBuildImages() {
 }
 
 function buildImage() {
-    $WORKSPACE/jenkins_scripts/buildImage.sh $1 $WORKSPACE
+    ls -alF
+    $WORKSPACE/jenkins_scripts/buildImage.sh $1
 }
 
 function buildImages() {
