@@ -3,13 +3,12 @@
 source $WORKSPACE/jenkins_scripts/getAffectedDirs.sh
 
 function getAppDirectories() {
-    ls
     echo find . -name Dockerfile -printf '%h\n'
 }
 
 function getDirectoriesForBuildImages() {
     APP_DIRS=`getAppDirectories`
-    echo `getAffectedDirs $APP_DIRS`
+    echo `getAffectedDirs '$APP_DIRS'`
 }
 
 function buildImage() {
