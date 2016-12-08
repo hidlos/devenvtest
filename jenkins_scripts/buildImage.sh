@@ -5,7 +5,7 @@ DIR=$1
 function getNodeModuleVersion() {
     echo `grep -Po '(?<="version". ")[^"]*' package.json`
 }
-
+ls
 cd $WORKSPACE/$DIR
 echo "Building and publishing Docker image $DIR"
 IMAGE_VERSION=`getNodeModuleVersion`
