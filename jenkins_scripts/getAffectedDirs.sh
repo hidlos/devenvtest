@@ -20,6 +20,7 @@ function getCommitRange() {
 
 function getAffectedFilesFromCommit() {
     COMMIT_RANGE=`getCommitRange`
+    git diff --name-only $COMMIT_RANGE
     echo `git diff --name-only $COMMIT_RANGE`
 }
 
