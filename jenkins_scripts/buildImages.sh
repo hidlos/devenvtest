@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source ./getAffectedDirs
+ls
+source getAffectedDirs.sh
 
 function getAppDirectories() {
     echo find . -name Dockerfile -printf '%h\n'
