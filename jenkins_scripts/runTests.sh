@@ -59,8 +59,9 @@ function runTests() {
 
     for DIR in $DIRS_FOR_TEST
     do
-      `runTestForDirectory $DIR`
+        echo $DIR
+      #runTestForDirectory $DIR
     done
 }
 
-runTests
+echo `runTests`
