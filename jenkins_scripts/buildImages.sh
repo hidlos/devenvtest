@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-ls
 source ./jenkins_scripts/getAffectedDirs.sh
 
 function getAppDirectories() {

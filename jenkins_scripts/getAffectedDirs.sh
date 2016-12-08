@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+ls
 function getLastSuccessfulBuildHash() {
     XML_URL=http://test-jenkins.billboard.intra:8080/job/$JOB_NAME/lastSuccessfulBuild/api/xml
     XML_PATH='//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()'
@@ -27,7 +27,7 @@ function getAffectedFilesFromCommit() {
 function getAffectedDirs() {
     DIRS=$1
     AFFECTED_FILES=`getAffectedFilesFromCommit`
-
+    $AFFECTED_FILES
     for DIR in $DIRS; do
         CURRENT_DIR=`echo $DIR | cut -d '/' -f 2-`
         if [[ $AFFECTED_FILES == *"$CURRENT_DIR"* ]]; then
