@@ -45,13 +45,13 @@ function getDirectoriesForTest() {
 }
 
 function runTestForDirectory() {
-    DIRECTORY_FOR_TESTING=$WORKSPACE/$1
-
+    #DIRECTORY_FOR_TESTING=$WORKSPACE/$1
+    ls
     #source ~/.profile
-    cd $DIRECTORY_FOR_TESTING
-    npm prune
-    npm install
-    npm run test
+    #cd $DIRECTORY_FOR_TESTING
+    #npm prune
+    #npm install
+    #npm run test
 }
 
 function runTests() {
