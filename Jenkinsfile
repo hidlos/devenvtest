@@ -8,13 +8,14 @@ stage('build workspace') {
 
 stage('run tests') {
     node ('nodejs') {
-        runTests()
+        echo(sh (script: "bash ./jenkins_scripts/runTests.sh", returnStdout: true))
+        //runTests()
     }
 }
 
 stage('build images') {
     node ('nodejs') {
-        buildImages()
+        //buildImages()
     }
 }
 
