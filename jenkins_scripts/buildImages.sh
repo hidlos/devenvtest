@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ./jenkins_scripts/getAffectedDirs.sh
+source $WORKSPACE/jenkins_scripts/getAffectedDirs.sh
 
 function getAppDirectories() {
     echo find . -name Dockerfile -printf '%h\n'
@@ -12,7 +12,7 @@ function getDirectoriesForBuildImages() {
 }
 
 function buildImage() {
-    ./jenkins_scripts/buildImage.sh $1 $WORKSPACE
+    $WORKSPACE/jenkins_scripts/buildImage.sh $1 $WORKSPACE
 }
 
 function buildImages() {
