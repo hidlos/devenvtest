@@ -2,13 +2,13 @@
 
 stage('build workspace') {
     node ('nodejs') {
-        sh (script: "rm -rf $WORKSPACE && cp -r -a $SCRIPT_HOME $WORKSPACE", returnStdout: true)
+        sh (script: "rm -rf $WORKSPACE && cp -r -a $SCRIPT_HOME $WORKSPACE", echoStdout: true)
     }
 }
 
 stage('run tests') {
     node ('nodejs') {
-        echo(sh (script: "bash ./jenkins_scripts/runTests.sh", returnStdout: true))
+        echo(sh (script: "bash ./jenkins_scripts/runTests.sh", echoStdout: true))
         //runTests()
     }
 }
@@ -29,12 +29,12 @@ def runTests() {
 
 def getDirectoriesForTest() {
     def modulesDirectories = getModuleDirectories()
-    return getAffectedDirs(modulesDirectories)
+    echo getAffectedDirs(modulesDirectories)
 }
 
 def getModuleDirectories() {
-    def moduleDirsFromBash = sh (script: "find . -name package.json -printf '%h '", returnStdout: true)
-    return moduleDirsFromBash.toString().split(' ')
+    def moduleDirsFromBash = sh (script: "find . -name package.json -printf '%h '", echoStdout: true)
+    echo moduleDirsFromBash.toString().split(' ')
 }
 
 def getAffectedDirs(dirs) {
@@ -49,27 +49,27 @@ def getAffectedDirs(dirs) {
         }
     }
 
-    return affectedDirs
+    echo affectedDirs
 }
 
 def getAffectedFilesFromCommit() {
     def commitRange = getCommitRange()
-    def affectedFilesFromBash = sh (script: "git diff --name-only $commitRange", returnStdout: true).toString()
-    return affectedFilesFromBash
+    def affectedFilesFromBash = sh (script: "git diff --name-only $commitRange", echoStdout: true).toString()
+    echo affectedFilesFromBash
 }
 
 def getCommitRange() {
     def lastSuccessfulBuildHash
-    def actualCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+    def actualCommit = sh(echoStdout: true, script: 'git rev-parse HEAD').trim()
 
     def ch = changeSets()
     echo(ch)
     node ('master') {
         lastSuccessfulBuildHash = getLastSuccessfulBuildHash()
     }
-    //return ch
-    return '12343e6fc29bd729b290e01a6a799a33914513df..7397e92b901e669b543efae7605dca2662ce50b9'
-    return lastSuccessfulBuildHash + '..' + actualCommit
+    //echo ch
+    echo '12343e6fc29bd729b290e01a6a799a33914513df..7397e92b901e669b543efae7605dca2662ce50b9'
+    echo lastSuccessfulBuildHash + '..' + actualCommit
 }
 
 @NonCPS
@@ -80,18 +80,18 @@ def changeSets() {
 
         def secondCommit = changeSetList.last().getCommitId()
         echo("ARSI result: ${firstCommit}..${secondCommit}")
-        return "${firstCommit}..${secondCommit}"
+        echo "${firstCommit}..${secondCommit}"
     }
 }
 
 def runTestForDirectory(dir) {
-    echo(sh (script: "cd $WORKSPACE/$dir && npm prune && npm install && npm run test:single", returnStdout: true))
+    echo(sh (script: "cd $WORKSPACE/$dir && npm prune && npm install && npm run test:single", echoStdout: true))
 }
 
 def getLastSuccessfulBuildHash() {
     def url = "localhost:8080/job/pipe/lastSuccessfulBuild/api/xml"
     def xml_path = '//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()'
-    return sh (script: "curl -G $url | xmllint --xpath '$xml_path' -", returnStdout: true)
+    echo sh (script: "curl -G $url | xmllint --xpath '$xml_path' -", echoStdout: true)
 }
 
 def buildImages() {
@@ -104,13 +104,13 @@ def buildImages() {
 
 def getDirectoriesForBuildImages() {
     def appDirectories = getAppDirectories()
-    return getAffectedDirs(appDirectories)
+    echo getAffectedDirs(appDirectories)
 }
 
 def getAppDirectories() {
-    return sh (script: "find . -name Dockerfile -printf '%h '", returnStdout: true).toString().split(' ')
+    echo sh (script: "find . -name Dockerfile -printf '%h '", echoStdout: true).toString().split(' ')
 }
 
 def buildImage(dir) {
-    echo(sh (script: "bash ./scripts/buildImage.sh '$dir' '$WORKSPACE'", returnStdout: true))
+    echo(sh (script: "bash ./scripts/buildImage.sh '$dir' '$WORKSPACE'", echoStdout: true))
 }

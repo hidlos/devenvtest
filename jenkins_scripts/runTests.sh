@@ -4,7 +4,7 @@
 function getLastSuccessfulBuildHash() {
     XML_URL=http://test-jenkins.billboard.intra:8080/job/$JOB_NAME/lastSuccessfulBuild/api/xml
     XML_PATH='//workflowRun/action[@_class=\"hudson.plugins.git.util.BuildData\"]/lastBuiltRevision/SHA1/text()'
-    return `curl -G $XML_URL | xmllint --xpath '$XML_PATH' -`
+    echo `curl -G $XML_URL | xmllint --xpath '$XML_PATH' -`
 }
 
 
@@ -13,13 +13,13 @@ function getCommitRange() {
 
     #IF WE USE AGENTS, THIS HAS TO BE RUN ON MASTER
     LAST_SUCCESSFUL_BUILD_HASH=`getLastSuccessfulBuildHash`
-    return 47e53f4256ebea159bf03664b5b9f13db9f367ae..bd3ea1c829b65c18ffd1aca333976483fbf22597
-    #return $LAST_SUCCESSFUL_BUILD_HASH..$ACTUAL_COMMIT
+    echo 47e53f4256ebea159bf03664b5b9f13db9f367ae..bd3ea1c829b65c18ffd1aca333976483fbf22597
+    #echo $LAST_SUCCESSFUL_BUILD_HASH..$ACTUAL_COMMIT
 }
 
 function getAffectedFilesFromCommit() {
     COMMIT_RANGE=`getCommitRange`
-    return `git diff --name-only $COMMIT_RANGE`
+    echo `git diff --name-only $COMMIT_RANGE`
 }
 
 function getAffectedDirs() {
@@ -35,12 +35,12 @@ function getAffectedDirs() {
 }
 
 function getModuleDirectories() {
-    return `find . -name package.json -printf '%h\n'`
+    echo `find . -name package.json -printf '%h\n'`
 }
 
 function getDirectoriesForTest() {
     MODULES_DIRS=`getModuleDirectories`
-    return `getAffectedDirs $MODULES_DIRS`
+    echo `getAffectedDirs $MODULES_DIRS`
 }
 
 function runTestForDirectory() {
